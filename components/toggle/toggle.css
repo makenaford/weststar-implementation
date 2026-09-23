@@ -1,1 +1,106 @@
-/* TODO */
+/* Toggle — Figma: 💠 Clay Components / Toggle (596:1387)
+   Markup:
+     <label class="ws-toggle">
+       <input type="checkbox" role="switch" class="ws-toggle__input">
+       <span class="ws-toggle__track"><span class="ws-toggle__knob">[optional .ws-icon]</span></span>
+       <span class="ws-toggle__label">…</span>
+     </label>
+   Props → classes
+     Size       (Regular) | .ws-toggle--sm
+     Checked    native :checked on the input
+     Disabled   native :disabled, or .is-disabled on .ws-toggle
+     Icon       optional .ws-icon inside .ws-toggle__knob (Figma default: bell-on)
+     Label      optional .ws-toggle__label (put aria-label on the input when it is omitted)
+     Focus      not drawn in Figma; :focus-visible (or .is-focus) puts --ws-focus-ring on the track. */
+
+.ws-toggle {
+  --toggle-w: 48px;
+  --toggle-h: 24px;
+  --toggle-knob: 18px;
+  --toggle-inset: 3px;
+  --toggle-icon: 12px;
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  color: var(--text-body);
+  font-size: var(--font-size-paragraph-base);
+  line-height: var(--font-line-height-body);
+  cursor: pointer;
+}
+
+/* The native checkbox stays in the accessibility tree and receives focus; it is drawn by the track. */
+.ws-toggle__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ws-toggle__track {
+  --toggle-color: var(--color-gray-400);
+  --toggle-icon-color: var(--color-gray-600);
+
+  position: relative;
+  flex-shrink: 0;
+  width: var(--toggle-w);
+  height: var(--toggle-h);
+  border-radius: var(--rounded-full);
+  background: var(--toggle-color);
+  transition: background-color var(--ws-transition), box-shadow var(--ws-transition);
+}
+
+.ws-toggle__knob {
+  position: absolute;
+  top: var(--toggle-inset);
+  left: var(--toggle-inset);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--toggle-knob);
+  height: var(--toggle-knob);
+  border-radius: var(--rounded-full);
+  background: var(--color-white);
+  color: var(--toggle-icon-color);
+  transition: transform var(--ws-transition), color var(--ws-transition);
+}
+
+.ws-toggle__knob .ws-icon {
+  width: var(--toggle-icon);
+  height: var(--toggle-icon);
+}
+
+.ws-toggle__input:checked + .ws-toggle__track {
+  --toggle-color: var(--color-primary);
+  --toggle-icon-color: var(--color-primary);
+}
+
+.ws-toggle__input:checked + .ws-toggle__track .ws-toggle__knob {
+  transform: translateX(calc(var(--toggle-w) - var(--toggle-knob) - 2 * var(--toggle-inset)));
+}
+
+.ws-toggle__input:focus-visible + .ws-toggle__track,
+.ws-toggle.is-focus .ws-toggle__track {
+  box-shadow: var(--ws-focus-ring);
+}
+
+.ws-toggle:has(.ws-toggle__input:disabled),
+.ws-toggle.is-disabled {
+  opacity: var(--translucent-1);
+  cursor: not-allowed;
+}
+
+/* ---- Sizes ---- */
+
+.ws-toggle--sm {
+  --toggle-w: 30px;
+  --toggle-h: 16px;
+  --toggle-knob: 12px;
+  --toggle-inset: 2px;
+  --toggle-icon: 10px;
+
+  font-size: var(--font-size-paragraph-small);
+}

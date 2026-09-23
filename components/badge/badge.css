@@ -1,1 +1,78 @@
-/* TODO */
+/* Badge — Figma: 💠 Clay Components / Badge (63:5098)
+   Props → classes
+     Type          .ws-badge--primary (default) | --info | --success | --warning | --danger
+     Translucent   --translucent
+     Dark Mode     --dark (Translucent only changes on dark surfaces; Solid is identical)
+     Label         text content (Paragraph / Small Caps (Tiny) / Semibold: 12px, 600, uppercase)
+   Figma deviations (see README "Figma issues"):
+     - Translucent Success uses $success text; the other status types use $<type>-d1. Here all use -d1.
+     - Translucent Primary on dark uses $primary-l1 text (about 3.5:1 on the nav bar). Here $primary-l2. */
+
+.ws-badge {
+  --badge-bg: var(--color-primary);
+  --badge-color: var(--color-white);
+  --badge-tl-bg: var(--color-primary-d1-4);
+  --badge-tl-color: var(--color-primary);
+  --badge-tl-dark-bg: var(--color-primary-l2-4);
+  --badge-tl-dark-color: var(--color-primary-l2);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 19px;
+  padding: 0.5px var(--spacing-2);
+  border-radius: var(--rounded-full);
+  background: var(--badge-bg);
+  color: var(--badge-color);
+  font-size: var(--font-size-paragraph-x-small);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--font-line-height-body);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* ---- Type ---- */
+
+.ws-badge--info {
+  --badge-bg: var(--color-info);
+  --badge-tl-bg: var(--color-info-d1-4);
+  --badge-tl-color: var(--color-info-d1);
+  --badge-tl-dark-bg: var(--color-info-l2-4);
+  --badge-tl-dark-color: var(--color-info-l1);
+}
+
+.ws-badge--success {
+  --badge-bg: var(--color-success);
+  --badge-tl-bg: var(--color-success-d1-4);
+  --badge-tl-color: var(--color-success-d1);
+  --badge-tl-dark-bg: var(--color-success-l2-4);
+  --badge-tl-dark-color: var(--color-success-l1);
+}
+
+.ws-badge--warning {
+  --badge-bg: var(--color-warning);
+  --badge-tl-bg: var(--color-warning-d1-4);
+  --badge-tl-color: var(--color-warning-d1);
+  --badge-tl-dark-bg: var(--color-warning-l2-4);
+  --badge-tl-dark-color: var(--color-warning-l1);
+}
+
+.ws-badge--danger {
+  --badge-bg: var(--color-danger);
+  --badge-tl-bg: var(--color-danger-d1-4);
+  --badge-tl-color: var(--color-danger-d1);
+  --badge-tl-dark-bg: var(--color-danger-l2-4);
+  --badge-tl-dark-color: var(--color-danger-l1);
+}
+
+/* ---- Translucent ---- */
+
+.ws-badge--translucent {
+  background: var(--badge-tl-bg);
+  color: var(--badge-tl-color);
+}
+
+.ws-badge--translucent.ws-badge--dark {
+  background: var(--badge-tl-dark-bg);
+  color: var(--badge-tl-dark-color);
+}

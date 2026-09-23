@@ -1,1 +1,110 @@
-/* TODO */
+/* Checkbox — Figma: 💠 Clay Components / Checkbox (159:2711)
+   Markup: <label class="ws-checkbox"><input type="checkbox" class="ws-checkbox__input"> <span class="ws-checkbox__label">…</span></label>
+   Props → classes
+     Checked        native :checked
+     Indeterminate  native :indeterminate (set input.indeterminate = true in JS), or .is-indeterminate on the input
+     Show Label     optional .ws-checkbox__label (put aria-label on the input when it is omitted)
+     State          :hover :focus-visible :disabled, or .is-hover .is-focus .is-disabled on .ws-checkbox for static display
+   Figma: hover is a 32px primary-l2 @ 40% circle behind the box; focus is a round 28px focus ring. */
+
+.ws-checkbox {
+  position: relative;
+  isolation: isolate; /* keeps the hover circle (z-index -1) behind the box but inside the component */
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--spacing-3);
+  color: var(--text-body);
+  font-size: var(--font-size-paragraph-base);
+  line-height: var(--font-line-height-body);
+  cursor: pointer;
+}
+
+.ws-checkbox__input {
+  position: relative;
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin: 3px 0; /* centres the 18px box on the first 24px line */
+  border: 1px solid var(--color-gray-600);
+  border-radius: var(--rounded-sm);
+  background: var(--color-white);
+  appearance: none;
+  cursor: inherit;
+  transition: background-color var(--ws-transition), border-color var(--ws-transition);
+}
+
+/* Hover circle and round focus ring */
+.ws-checkbox__input::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  z-index: -1;
+  border-radius: var(--rounded-full);
+  transition: background-color var(--ws-transition), box-shadow var(--ws-transition);
+}
+
+/* Check mark (check-small) and indeterminate bar (hr) */
+.ws-checkbox__input::after {
+  content: '';
+  position: absolute;
+  display: none;
+}
+
+.ws-checkbox__input:checked,
+.ws-checkbox__input:indeterminate,
+.ws-checkbox__input.is-indeterminate {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+}
+
+.ws-checkbox__input:checked::after {
+  display: block;
+  left: 5px;
+  top: 1.5px;
+  width: 6px;
+  height: 10px;
+  border: solid var(--color-white);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.ws-checkbox__input:indeterminate::after,
+.ws-checkbox__input.is-indeterminate::after {
+  display: block;
+  left: 3px;
+  top: 7px;
+  width: 10px;
+  height: 2px;
+  border: 0;
+  border-radius: 1px;
+  background: var(--color-white);
+  transform: none;
+}
+
+.ws-checkbox:hover .ws-checkbox__input::before,
+.ws-checkbox.is-hover .ws-checkbox__input::before {
+  background: var(--color-primary-l2-4);
+}
+
+.ws-checkbox__input:focus-visible,
+.ws-checkbox.is-focus .ws-checkbox__input {
+  outline: none;
+}
+
+.ws-checkbox__input:focus-visible::before,
+.ws-checkbox.is-focus .ws-checkbox__input::before {
+  inset: -4px;
+  background: transparent;
+  box-shadow: var(--ws-focus-ring);
+}
+
+.ws-checkbox:has(.ws-checkbox__input:disabled),
+.ws-checkbox.is-disabled {
+  opacity: var(--translucent-1);
+  cursor: not-allowed;
+}
+
+.ws-checkbox:has(.ws-checkbox__input:disabled) .ws-checkbox__input::before,
+.ws-checkbox.is-disabled .ws-checkbox__input::before {
+  background: transparent;
+}

@@ -1,0 +1,29 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Introduction" />
+
+# West Star Aviation design system
+
+The tokens and components behind the WSA customer portal. They're built in plain HTML and CSS from the Figma file **gs-weststar-implementation**, which uses Liferay Clay components.
+
+## Use it
+
+Link one stylesheet and the Montserrat font. Put `icons.svg` where your pages can reach it.
+
+```html
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/index.css" />
+
+<button class="ws-btn ws-btn--primary">Approve squawk</button>
+<svg class="ws-icon"><use href="icons.svg#check"></use></svg>
+```
+
+## How it's organized
+
+- **Foundations:** color, chart color, semantic color, type, spacing, radius, shadow and icons. They're all CSS custom properties, generated from `tokens/*.json`.
+- **Components:** one folder per component, with a CSS file, its stories and, where needed, a small JS file. Every story's docs name the Figma node it was built from.
+- **States:** real `:hover`, `:focus-visible`, `:active` and `:disabled` work. The `.is-hover`, `.is-focus`, `.is-active` and `.is-disabled` classes show states statically.
+
+## Colors differ from Figma
+
+The Figma variables still hold the original palette. This system uses the **updated** palette: primary is a real tint/shade scale of #1E293B, the status ramps are muted, and the chart ramps are rebalanced. The Foundations → Colors page shows the old Figma value for every token that changed.

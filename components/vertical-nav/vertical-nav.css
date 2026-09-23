@@ -1,1 +1,189 @@
-/* TODO */
+/* Vertical Navigation — Figma: 💠 Clay Components / Vertical Navigation (6528:4288),
+   groups from _Item Group (6528:4301), items from _Item (6528:4326). The portal's per-project secondary nav.
+   Props → classes
+     Vertical Navigation Style   (Null: items touch) | .ws-vnav--primary (12px between groups)
+     Inverted / Mode             .ws-vnav--dark (on dark surfaces)
+     Style / Variant             (Transparent: rounded fills) | .ws-vnav--decorated (left rail instead of fills), on the block
+     Level                       Level-1 = .ws-vnav__item in the top list | Level-2 = .ws-vnav__item inside .ws-vnav__sub
+     Variant (Icon/No Icon)      optional .ws-vnav__icon (Left Icon) before the label
+     Expandable / Type           button.ws-vnav__item[aria-expanded] + .ws-vnav__caret (angle-right, turns down when open)
+                                 followed by ul.ws-vnav__sub; Not Expandable = a plain link. Behavior: initVerticalNav(root).
+     State                       :hover :focus-visible :active, [aria-current='page'] (Selected),
+                                 or .is-hover .is-focus .is-active .is-selected for static display
+   Figma deviations, see README "Figma issues":
+     - There is no Dark + Decorated item in Figma. Here it uses a primary-l0 rail and a primary-l2 selected rail.
+     - Dark Selected fills with primary-d1, which disappears on the portal's primary-d1 surfaces; this uses primary.
+     - Dark Level-2 Focus has a stray untokenised black 1px stroke; not copied. Level-2 Focus shows a chevron that no
+       other Level-2 state has; not copied.
+     - Some states use an 18px left icon and others 16px; this uses 16px throughout. */
+
+.ws-vnav {
+  --vnav-color: var(--color-gray-900);
+  --vnav-color-strong: var(--color-gray-900);
+  --vnav-bg-hover: var(--color-gray-100);
+  --vnav-bg-selected: var(--color-primary-l3);
+  --vnav-rail: transparent;
+  --vnav-rail-hover: transparent;
+  --vnav-rail-selected: var(--color-primary);
+  --vnav-rail-width: 4px;
+  --vnav-gap: var(--spacing-3);
+
+  font-size: var(--font-size-paragraph-small);
+}
+
+.ws-vnav__list,
+.ws-vnav__sub {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ws-vnav--primary > .ws-vnav__list { gap: var(--spacing-4); }
+
+.ws-vnav__group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vnav-gap);
+}
+
+.ws-vnav__sub { gap: var(--vnav-gap); }
+.ws-vnav__sub[hidden] { display: none; }
+
+.ws-vnav__item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  width: 100%;
+  padding: var(--spacing-4) var(--spacing-5);
+  border: 0;
+  border-radius: var(--rounded-md);
+  background: transparent;
+  color: var(--vnav-color);
+  font-family: inherit;
+  font-size: var(--font-size-paragraph-small);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--font-line-height-body);
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--ws-transition), color var(--ws-transition), box-shadow var(--ws-transition);
+}
+
+/* Left rail (Selected in Transparent; hover/track/selected in Decorated). Drawn inside, so text doesn't shift. */
+.ws-vnav__item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: var(--vnav-rail-width);
+  border-radius: var(--rounded-md) 0 0 var(--rounded-md);
+  background: var(--vnav-rail);
+  transition: background-color var(--ws-transition);
+}
+
+.ws-vnav__sub .ws-vnav__item {
+  width: calc(100% - var(--spacing-7));
+  margin-left: var(--spacing-7);
+}
+
+.ws-vnav__label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ws-vnav__icon { width: 16px; height: 16px; opacity: var(--translucent-1); }
+.ws-vnav__caret { width: 16px; height: 16px; transition: transform var(--ws-transition); }
+.ws-vnav__item[aria-expanded='true'] .ws-vnav__caret { transform: rotate(90deg); }
+
+.ws-vnav__item:hover,
+.ws-vnav__item.is-hover {
+  background: var(--vnav-bg-hover);
+  color: var(--vnav-color-strong);
+  font-weight: var(--font-weight-semibold);
+}
+
+.ws-vnav__item:hover::before,
+.ws-vnav__item.is-hover::before {
+  background: var(--vnav-rail-hover);
+}
+
+.ws-vnav__item:focus-visible,
+.ws-vnav__item.is-focus {
+  outline: none;
+  color: var(--vnav-color-strong);
+  font-weight: var(--font-weight-semibold);
+  box-shadow: var(--ws-focus-ring);
+}
+
+.ws-vnav__item:active,
+.ws-vnav__item.is-active {
+  color: var(--vnav-color-strong);
+  font-weight: var(--font-weight-semibold);
+}
+
+.ws-vnav__item[aria-current='page'],
+.ws-vnav__item[aria-current='true'],
+.ws-vnav__item.is-selected {
+  background: var(--vnav-bg-selected);
+  color: var(--vnav-color-strong);
+  font-weight: var(--font-weight-semibold);
+}
+
+.ws-vnav__item:is([aria-current='page'], [aria-current='true'], .is-selected)::before {
+  background: var(--vnav-rail-selected);
+}
+
+.ws-vnav__item:is([aria-current='page'], [aria-current='true'], .is-selected) .ws-vnav__icon {
+  opacity: 1;
+}
+
+.ws-vnav__item:disabled,
+.ws-vnav__item[aria-disabled='true'],
+.ws-vnav__item.is-disabled {
+  opacity: var(--translucent-1);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ---- Decorated: no fills, a 2px left rail ---- */
+
+.ws-vnav--decorated {
+  --vnav-bg-hover: transparent;
+  --vnav-bg-selected: transparent;
+  --vnav-rail-hover: var(--color-gray-200);
+  --vnav-rail-width: 2px;
+}
+
+.ws-vnav--decorated .ws-vnav__item { border-radius: 0; }
+.ws-vnav--decorated .ws-vnav__item::before { border-radius: 0; }
+.ws-vnav--decorated .ws-vnav__item:focus-visible,
+.ws-vnav--decorated .ws-vnav__item.is-focus { border-radius: var(--rounded-md); }
+.ws-vnav--decorated .ws-vnav__group,
+.ws-vnav--decorated .ws-vnav__sub { --vnav-gap: 0; }
+
+/* Level-2 items in Decorated always show the rail as a track. */
+.ws-vnav--decorated .ws-vnav__sub .ws-vnav__item { --vnav-rail: var(--vnav-rail-hover); }
+
+/* ---- Dark mode ---- */
+
+.ws-vnav--dark {
+  --vnav-color: var(--color-gray-300);
+  --vnav-color-strong: var(--color-white);
+  --vnav-bg-hover: var(--color-gray-900-40);
+  --vnav-bg-selected: var(--color-primary);
+  --vnav-rail-selected: var(--color-primary-l0);
+}
+
+.ws-vnav--dark.ws-vnav--decorated {
+  --vnav-bg-hover: transparent;
+  --vnav-bg-selected: transparent;
+  --vnav-rail-hover: var(--color-primary-l0);
+  --vnav-rail-selected: var(--color-primary-l2);
+}

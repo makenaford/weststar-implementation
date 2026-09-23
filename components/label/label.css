@@ -1,1 +1,79 @@
-/* TODO */
+/* Label — Figma: 💠 Clay Components / Label (210:3634). Used in the portal as status pills.
+   Props → classes
+     Type         .ws-label--neutral | --info | --success | --warning | --danger | --primary
+     Style        --translucent | --outline | --solid
+     Size         (Large) | --sm
+     Left Icon    <svg class="ws-icon ws-label__icon"> before the text (Figma: check, 12px)
+     Right Icon   <svg class="ws-icon ws-label__icon ws-label__icon--right"> after the text (Figma: times-small, 14px)
+   The 1px border is always present (transparent unless Outline) so every style has the same height (30px / 22px).
+   Figma deviations (see README "Figma issues"):
+     - Size=Small is inconsistent: only Neutral Outline/Translucent are really small (22px, X-Small Semibold,
+       2px 4px padding). Status Translucent Small is 27px Small Regular; Outline/Solid Small are identical to Large.
+       Here every Small label uses the Neutral Small spec. */
+
+.ws-label {
+  --label-main: var(--color-gray-700);
+  --label-tint: var(--color-gray-100);
+  --label-outline: var(--label-main);
+  --label-bg: var(--label-tint);
+  --label-border: transparent;
+  --label-color: var(--label-main);
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  padding: var(--spacing-1) 7px;
+  border: 1px solid var(--label-border);
+  border-radius: var(--rounded-md);
+  background: var(--label-bg);
+  color: var(--label-color);
+  font-size: var(--font-size-paragraph-base);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--font-line-height-body);
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.ws-label__icon { width: 12px; height: 12px; }
+.ws-label__icon--right { width: 14px; height: 14px; }
+
+/* ---- Type ---- */
+
+.ws-label--neutral {
+  --label-main: var(--color-gray-700);
+  --label-tint: var(--color-gray-100);
+  --label-outline: var(--color-gray-300);
+}
+
+.ws-label--info { --label-main: var(--color-info); --label-tint: var(--color-info-l2); }
+.ws-label--success { --label-main: var(--color-success); --label-tint: var(--color-success-l2); }
+.ws-label--warning { --label-main: var(--color-warning); --label-tint: var(--color-warning-l2); }
+.ws-label--danger { --label-main: var(--color-danger); --label-tint: var(--color-danger-l2); }
+.ws-label--primary { --label-main: var(--color-primary); --label-tint: var(--color-primary-l3); }
+
+/* ---- Style ---- */
+
+.ws-label--translucent {
+  --label-bg: var(--label-tint);
+  --label-border: transparent;
+  --label-color: var(--label-main);
+}
+
+.ws-label--outline {
+  --label-bg: var(--color-white);
+  --label-border: var(--label-outline);
+  --label-color: var(--label-main);
+}
+
+.ws-label--solid {
+  --label-bg: var(--label-main);
+  --label-border: transparent;
+  --label-color: var(--color-white);
+}
+
+/* ---- Size ---- */
+
+.ws-label--sm {
+  padding: 1px 3px;
+  font-size: var(--font-size-paragraph-x-small);
+}

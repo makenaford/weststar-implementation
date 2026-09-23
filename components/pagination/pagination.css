@@ -1,1 +1,125 @@
-/* TODO */
+/* Pagination — Figma: 💠 Clay Components / Pagination (538:20530), page buttons from _ButtonPagination (1018:7801),
+   the page group from _PaginationGroup (1022:10038)
+   Props → classes
+     Variant          (Desktop: controls left, pages right) | .ws-pagination--mobile (stacked, centered)
+     Show Controls    optional .ws-pagination__controls (items-per-page .ws-btn and the "Showing…" .ws-pagination__summary)
+     _ButtonPagination Variant   Text = .ws-pagination__btn with a number | Icon = .ws-pagination__btn with a .ws-icon
+                                 (angle-left / angle-right for prev/next, ellipsis-h for skipped pages)
+     _ButtonPagination State     :hover :focus-visible, [aria-current='page'] (Selected), :disabled,
+                                 or .is-hover .is-focus .is-selected .is-disabled for static display
+   Bottom bars (hover 2px gray-600, selected 4px primary-l0) are inset shadows so the label doesn't move. */
+
+.ws-pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-5);
+  font-size: var(--font-size-paragraph-small);
+  line-height: var(--font-line-height-body);
+  color: var(--color-gray-900);
+}
+
+.ws-pagination__controls {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-5);
+}
+
+.ws-pagination__summary {
+  margin: 0;
+}
+
+.ws-pagination__group {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ws-pagination__pages {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ws-pagination__btn {
+  --pg-bg: transparent;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  padding: var(--spacing-3);
+  border: 0;
+  border-radius: var(--rounded-md);
+  background: var(--pg-bg);
+  box-shadow: inset 0 calc(-1 * var(--pg-bar-width, 0px)) 0 var(--pg-bar-color, transparent);
+  color: var(--color-gray-900);
+  font-family: inherit;
+  font-size: var(--font-size-paragraph-small);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--ws-transition), box-shadow var(--ws-transition);
+}
+
+.ws-pagination__btn .ws-icon { width: 16px; height: 16px; }
+
+.ws-pagination__btn:hover,
+.ws-pagination__btn.is-hover {
+  --pg-bg: var(--color-gray-100);
+  --pg-bar-width: 2px;
+  --pg-bar-color: var(--color-gray-600);
+  border-radius: var(--rounded-md) var(--rounded-md) var(--rounded-sm) var(--rounded-sm);
+}
+
+.ws-pagination__btn[aria-current='page'],
+.ws-pagination__btn.is-selected {
+  --pg-bg: var(--color-primary-l3);
+  --pg-bar-width: 4px;
+  --pg-bar-color: var(--color-primary-l0);
+  border-radius: var(--rounded-md);
+}
+
+.ws-pagination__btn:focus-visible,
+.ws-pagination__btn.is-focus {
+  outline: none;
+  box-shadow: inset 0 calc(-1 * var(--pg-bar-width, 0px)) 0 var(--pg-bar-color, transparent), var(--ws-focus-ring);
+}
+
+.ws-pagination__btn:disabled,
+.ws-pagination__btn[aria-disabled='true'],
+.ws-pagination__btn.is-disabled {
+  --pg-bg: transparent;
+  --pg-bar-width: 0px;
+  box-shadow: none;
+  opacity: var(--translucent-1);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Ellipsis is not interactive */
+.ws-pagination__ellipsis {
+  cursor: default;
+  pointer-events: none;
+}
+
+/* ---- Mobile: stacked and centered ---- */
+
+.ws-pagination--mobile {
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.ws-pagination--mobile .ws-pagination__controls {
+  flex-direction: column;
+}

@@ -19,6 +19,7 @@ export const button = ({ label = 'Button', variant = 'ws-btn--primary', size = '
 
 export default {
   title: 'Components/Button',
+  excludeStories: /^[a-z]/, // lowercase exports are render helpers, not stories
   tags: ['autodocs'],
   parameters: {
     docs: {

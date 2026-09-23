@@ -1,1 +1,235 @@
-/* TODO */
+/* Table — Figma: 💠 Clay Components / Table (3902:15349)
+   Parts: _Row (3902:10795), _Cell Header (3902:9953), _Cell Body (3902:10163), _Cell Body Title (3902:10636)
+   A real <table class="ws-table">. Wrap it in .ws-table-wrap for horizontal scrolling on narrow screens.
+   Props → classes
+     Checkbox          first column: <th|td class="ws-table__cell-check"><input type="checkbox" class="ws-table__checkbox">
+     Striped           .ws-table--striped (even body rows use Table/Stripe)
+     Border Column     .ws-table--bordered (1px Table/Divider between columns)
+     Spaced            .ws-table--spaced (rows become separate white 8px-radius strips, 8px apart)
+     Condensed         .ws-table--condensed (header 36px, body rows 40px)
+     Nº of Columns     just the number of cells
+   _Row
+     State             Default | Hover (:hover, .is-hover) | Selected (.is-selected or aria-selected="true")
+     Style             White | Grey (automatic with --striped)
+     Actions           last column: <td class="ws-table__cell-actions"> with a borderless icon .ws-btn
+   _Cell Header
+     Header Title      <th> text. Sorting Icon → <button class="ws-table__sort"> plus aria-sort on the <th>
+     Icon              <th class="ws-table__cell-actions"> with a borderless icon .ws-btn (column settings)
+     Checkbox / Empty  .ws-table__cell-check
+   _Cell Body
+     Content           plain <td>. Second Line → <span class="ws-table__secondary">
+     Title             .ws-table__title (see _Cell Body Title below)
+     Label             <td> containing a .ws-label status pill (styled by the Label component)
+     Actions           .ws-table__cell-actions
+     Image             <img class="ws-table__image">
+     Left/Right Icon   <svg class="ws-icon ws-table__cell-icon [ws-table__cell-icon--right]">
+   _Cell Body Title
+     Expandable        .ws-table__expand (.ws-btn--xs icon button; angle-right collapsed, angle-down expanded)
+     Sticker           .ws-table__sticker (32px icon tile)
+     Label             .ws-table__title-link (Paragraph/Small/Semibold-Underline)
+     Identation Level  .ws-table__title--level-2 | --level-3 | --level-4 (24px per level)
+   Figma deviations (see README "Figma issues"):
+     - Body rows are 64px only when the checkbox column is on (its Checkbox instance has 10px/9px padding),
+       otherwise 56px. Here every body row is 56px (40px condensed).
+     - Header Title cells have 20px vertical padding inside a fixed 56px height, which doesn't add up.
+       Cells here use a fixed height with vertical centring.
+     - Table variants with Border Column=No still show column dividers in the header row, but the
+       _Row Header variant with Border Column=No has none. The _Row spec is followed.
+     - _Cell Body Title uses angle-down for both Collapsed and Expanded. Collapsed uses angle-right here.
+     - The checkbox uses the Checkbox component (label.ws-checkbox > input.ws-checkbox__input.ws-table__checkbox). */
+
+.ws-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.ws-table {
+  --table-cell-height: 56px;
+  --table-header-height: 56px;
+  --table-row-bg: var(--table-default-bg);
+
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--table-outline);
+  border-radius: var(--rounded-lg);
+  overflow: hidden;
+  background: var(--table-default-bg);
+  color: var(--text-body);
+  font-size: var(--font-size-paragraph-small);
+  line-height: var(--font-line-height-body);
+  text-align: left;
+}
+
+.ws-table tr { --table-row-bg: var(--table-default-bg); }
+
+.ws-table th,
+.ws-table td {
+  height: var(--table-cell-height);
+  padding: 0 var(--spacing-5);
+  border-bottom: 1px solid var(--table-divider);
+  background: var(--table-row-bg);
+  font-weight: var(--font-weight-regular);
+  vertical-align: middle;
+  transition: background-color var(--ws-transition);
+}
+
+.ws-table th {
+  height: var(--table-header-height);
+  font-weight: var(--font-weight-semibold);
+  white-space: nowrap;
+}
+
+.ws-table tbody tr:last-child > * { border-bottom: 0; }
+
+/* ---- Row states ---- */
+
+.ws-table--striped tbody tr:nth-child(even) { --table-row-bg: var(--table-stripe); }
+
+.ws-table tbody tr:hover,
+.ws-table tbody tr.is-hover,
+.ws-table tbody tr.is-selected,
+.ws-table tbody tr[aria-selected='true'] {
+  --table-row-bg: var(--table-active-row);
+}
+
+/* ---- Border column ---- */
+
+.ws-table--bordered :is(th, td) + :is(th, td) { border-left: 1px solid var(--table-divider); }
+
+/* ---- Condensed ---- */
+
+.ws-table--condensed {
+  --table-cell-height: 40px;
+  --table-header-height: 36px;
+}
+
+/* ---- Spaced: each row is its own white strip ---- */
+
+.ws-table--spaced {
+  border: 0;
+  border-radius: 0;
+  border-spacing: 0 var(--spacing-3);
+  margin-block: calc(var(--spacing-3) * -1);
+  overflow: visible;
+  background: transparent;
+}
+
+.ws-table--spaced :is(th, td) { border-bottom: 0; }
+.ws-table--spaced tr > :first-child { border-radius: var(--rounded-lg) 0 0 var(--rounded-lg); }
+.ws-table--spaced tr > :last-child { border-radius: 0 var(--rounded-lg) var(--rounded-lg) 0; }
+
+/* ---- Cells ---- */
+
+.ws-table .ws-table__cell-check { width: 50px; }
+
+
+
+.ws-table .ws-table__cell-actions {
+  width: 56px;
+  padding: 0 var(--spacing-3);
+  text-align: center;
+}
+
+.ws-table--condensed .ws-table__cell-actions .ws-btn { width: 36px; height: 36px; }
+
+.ws-table__secondary {
+  display: block;
+  color: var(--text-placeholder);
+  font-size: var(--font-size-paragraph-x-small);
+}
+
+.ws-table__cell-icon {
+  width: 16px;
+  height: 16px;
+  margin-inline: 0 var(--spacing-3);
+  color: var(--color-gray-600);
+}
+
+.ws-table__cell-icon--right { margin-inline: var(--spacing-3) 0; }
+
+.ws-table__image {
+  display: block;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--rounded-md);
+  object-fit: cover;
+}
+
+.ws-table td:has(> .ws-table__image) {
+  width: 56px;
+  padding: 0 var(--spacing-3);
+}
+
+/* ---- Sortable header ---- */
+
+.ws-table__sort {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  padding: 0;
+  border: 0;
+  border-radius: var(--rounded-sm);
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.ws-table__sort .ws-icon {
+  width: 16px;
+  height: 16px;
+  color: var(--color-gray-600);
+}
+
+.ws-table__sort:hover,
+.ws-table__sort.is-hover { text-decoration: underline; }
+
+.ws-table__sort:focus-visible,
+.ws-table__sort.is-focus {
+  outline: none;
+  box-shadow: var(--ws-focus-ring);
+}
+
+.ws-table th[aria-sort='ascending'] .ws-table__sort .ws-icon,
+.ws-table th[aria-sort='descending'] .ws-table__sort .ws-icon { color: var(--color-gray-900); }
+
+/* ---- Title cell (_Cell Body Title) ---- */
+
+.ws-table__title {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  min-width: 0;
+}
+
+.ws-table__title--level-2 { padding-left: var(--spacing-7); }
+.ws-table__title--level-3 { padding-left: calc(var(--spacing-7) * 2); }
+.ws-table__title--level-4 { padding-left: calc(var(--spacing-7) * 3); }
+
+.ws-table__sticker {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--rounded-lg);
+  color: var(--color-gray-600);
+}
+
+.ws-table__sticker .ws-icon { width: 16px; height: 16px; }
+
+.ws-table__title-link {
+  color: var(--text-body);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: underline;
+}
+
+.ws-table__title-link:hover { color: var(--color-primary-d1); }
+
+.ws-table__title-link:focus-visible {
+  outline: none;
+  border-radius: var(--rounded-sm);
+  box-shadow: var(--ws-focus-ring);
+}

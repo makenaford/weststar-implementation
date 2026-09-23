@@ -1,1 +1,144 @@
-/* TODO */
+/* Tabs — Figma: 💠 Clay Components / Tabs (557:5126), items from Tab-Item (556:5009)
+   Props → classes
+     Styles (Tabs) / Style (Tab-Item)   (Classic, default) | .ws-tabs--underline, on the .ws-tabs block
+     Tabs (2–8)                         number of .ws-tabs__tab children
+     Dropdown                           optional caret-bottom .ws-icon after the label
+     Label                              text of .ws-tabs__tab
+     State                              :hover :focus-visible, [aria-selected='true'] (Active), :disabled / [aria-disabled='true'],
+                                        or .is-hover .is-focus .is-active .is-disabled for static display.
+                                        "Active + Focus" = selected and focused.
+   Structure: .ws-tabs[role=tablist] > button.ws-tabs__tab[role=tab]; panels are .ws-tabs__panel[role=tabpanel].
+   Behavior: initTabs(root) in tabs.js. */
+
+.ws-tabs {
+  --tab-color: var(--color-gray-900);
+  --tab-color-hover: var(--tab-color);
+  --tab-color-active: var(--tab-color);
+  --tab-bg-hover: transparent;
+
+  display: flex;
+  align-items: flex-end;
+  gap: var(--spacing-2);
+  padding: var(--spacing-3) var(--spacing-7) 0;
+  border-bottom: 1px solid var(--color-gray-300);
+}
+
+.ws-tabs__tab {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  height: 36px;
+  padding: 0 var(--spacing-6);
+  border: 1px solid transparent;
+  border-bottom: 0;
+  border-radius: var(--rounded-lg) var(--rounded-lg) 0 0;
+  background: transparent;
+  color: var(--tab-color);
+  font-family: inherit;
+  font-size: var(--font-size-paragraph-small);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--font-line-height-body);
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--ws-transition), color var(--ws-transition), box-shadow var(--ws-transition);
+}
+
+.ws-tabs__tab .ws-icon { width: 16px; height: 16px; }
+
+.ws-tabs__tab:hover,
+.ws-tabs__tab.is-hover {
+  background: var(--tab-bg-hover);
+  color: var(--tab-color-hover);
+}
+
+.ws-tabs__tab:focus-visible,
+.ws-tabs__tab.is-focus {
+  outline: none;
+  z-index: 1;
+  box-shadow: var(--ws-focus-ring);
+}
+
+.ws-tabs__tab[aria-selected='true'],
+.ws-tabs__tab.is-active {
+  color: var(--tab-color-active);
+}
+
+.ws-tabs__tab:disabled,
+.ws-tabs__tab[aria-disabled='true'],
+.ws-tabs__tab.is-disabled {
+  background: transparent;
+  color: var(--tab-color);
+  box-shadow: none;
+  opacity: var(--translucent-1);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ---- Style: Classic (default): hover gray-200; active is a white tab that covers the bottom rule ---- */
+
+.ws-tabs:not(.ws-tabs--underline) {
+  --tab-bg-hover: var(--color-gray-200);
+}
+
+.ws-tabs:not(.ws-tabs--underline) .ws-tabs__tab[aria-selected='true'],
+.ws-tabs:not(.ws-tabs--underline) .ws-tabs__tab.is-active {
+  height: 37px; /* 36px + 1px, pulled over the list's bottom rule */
+  margin-bottom: -1px;
+  border-color: var(--color-gray-300);
+  background: var(--color-white);
+}
+
+/* ---- Style: Underline: 4px bar under hovered (primary-d1) and active (primary-d2) tabs ---- */
+
+.ws-tabs--underline {
+  --tab-color-hover: var(--color-primary-d1);
+  --tab-color-active: var(--color-primary-d2);
+}
+
+.ws-tabs--underline .ws-tabs__tab {
+  height: 45px;
+  padding: var(--spacing-4) var(--spacing-6);
+  border: 0;
+  border-radius: var(--rounded-md);
+}
+
+.ws-tabs--underline .ws-tabs__tab::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  background: transparent;
+}
+
+.ws-tabs--underline .ws-tabs__tab:hover::after,
+.ws-tabs--underline .ws-tabs__tab.is-hover::after {
+  background: var(--color-primary-d1);
+}
+
+.ws-tabs--underline .ws-tabs__tab[aria-selected='true']::after,
+.ws-tabs--underline .ws-tabs__tab.is-active::after {
+  background: var(--color-primary-d2);
+}
+
+.ws-tabs--underline .ws-tabs__tab:disabled::after,
+.ws-tabs--underline .ws-tabs__tab.is-disabled::after {
+  background: transparent;
+}
+
+/* ---- Panels ---- */
+
+.ws-tabs__panel {
+  padding: var(--spacing-5) var(--spacing-7);
+}
+
+.ws-tabs__panel[hidden] { display: none; }
+
+.ws-tabs__panel:focus-visible {
+  outline: none;
+  box-shadow: var(--ws-focus-ring);
+}

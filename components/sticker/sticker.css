@@ -1,1 +1,62 @@
-/* TODO */
+/* Sticker — Figma: 💠 Clay Components / Sticker (225:3717). Used as avatars.
+   Props → classes
+     Type      Icon: <svg class="ws-icon"> child | Initial: text child | Image: .ws-sticker--image + <img class="ws-sticker__image">
+     Size      --sm (24) | (32, default) | --lg (40) | --xl (48) | --xxl (80)
+     Rounded   --rounded (circle with a $gray-300 border)
+   Icon sizes 12/16/20/24/32; initials use X-Small Semibold / Base Semibold / H5 / H4 / H3 Semibold.
+   Figma deviations (see README "Figma issues"): square Image stickers use a 4px radius, Icon and Initial
+   stickers 8px. Kept as in Figma. */
+
+.ws-sticker {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  overflow: hidden;
+  border-radius: var(--rounded-lg);
+  background: var(--color-white);
+  color: var(--color-gray-900);
+  font-size: var(--font-size-paragraph-base);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  vertical-align: middle;
+  user-select: none;
+}
+
+.ws-sticker .ws-icon { width: 16px; height: 16px; color: var(--color-gray-600); }
+
+.ws-sticker__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---- Type ---- */
+
+.ws-sticker--image { border-radius: var(--rounded-md); }
+
+/* ---- Size ---- */
+
+.ws-sticker--sm { width: 24px; height: 24px; font-size: var(--font-size-paragraph-x-small); }
+.ws-sticker--sm .ws-icon { width: 12px; height: 12px; }
+
+.ws-sticker--lg { width: 40px; height: 40px; font-size: var(--font-size-h5); font-weight: var(--font-weight-medium); }
+.ws-sticker--lg .ws-icon { width: 20px; height: 20px; }
+
+.ws-sticker--xl { width: 48px; height: 48px; font-size: var(--font-size-h4); font-weight: var(--font-weight-medium); }
+.ws-sticker--xl .ws-icon { width: 24px; height: 24px; }
+
+.ws-sticker--xxl { width: 80px; height: 80px; font-size: var(--font-size-h3); font-weight: var(--font-weight-medium); }
+.ws-sticker--xxl .ws-icon { width: 32px; height: 32px; }
+
+/* ---- Rounded ---- */
+
+.ws-sticker--rounded {
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--rounded-full);
+}

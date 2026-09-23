@@ -1,1 +1,103 @@
-/* TODO */
+/* Search — Figma: 💠 Clay Components / Search (342:1973)
+   Markup:
+     <div class="ws-search" role="search">
+       <svg class="ws-icon ws-search__icon">…search</svg>          (Type=Auto only: leading icon)
+       <input type="search" class="ws-search__input" placeholder="Search" aria-label="Search">
+       <button type="button" class="ws-search__clear" aria-label="Clear search">…times</button>
+       <button type="submit" class="ws-search__submit" aria-label="Search">…search</button>   (Type=Manual only)
+     </div>
+   Props → classes
+     Size    .ws-search--lg | (Regular) | .ws-search--sm
+     Type    Auto (leading icon, filters as you type) | Manual (trailing submit button); markup differs, no class needed
+     State   :focus-within, or .is-focus for static display. The clear button shows once the input has a value.
+   Figma deviations (README "Figma issues"): Small/Auto has a 4px radius while every other size and type uses 8px, so
+   all use --rounded-lg. The focused border is an untokenised #88ACFF ("Focused Outline inputs"), so it uses
+   --color-focus-outer, and the focus ring is added for consistency with Input. */
+
+.ws-search {
+  --search-icon: 16px;
+
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  width: 100%;
+  padding: var(--spacing-4) var(--spacing-5);
+  border: 1px solid var(--color-gray-400);
+  border-radius: var(--rounded-lg);
+  background: var(--color-white);
+  font-size: var(--font-size-paragraph-base);
+  line-height: var(--font-line-height-body);
+  transition: border-color var(--ws-transition), box-shadow var(--ws-transition);
+}
+
+.ws-search:focus-within,
+.ws-search.is-focus {
+  border-color: var(--color-focus-outer);
+  box-shadow: var(--ws-focus-ring);
+}
+
+.ws-search__input {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--text-body);
+  font: inherit;
+  outline: none;
+  appearance: none;
+}
+
+.ws-search__input::placeholder { color: var(--text-placeholder); opacity: 1; }
+.ws-search__input::-webkit-search-cancel-button,
+.ws-search__input::-webkit-search-decoration { appearance: none; }
+
+.ws-search .ws-icon {
+  width: var(--search-icon);
+  height: var(--search-icon);
+}
+
+.ws-search__icon { color: var(--color-gray-600); }
+
+.ws-search__clear,
+.ws-search__submit {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  border-radius: var(--rounded-sm);
+  background: transparent;
+  cursor: pointer;
+}
+
+.ws-search__clear { color: var(--color-gray-900); }
+.ws-search__submit { color: var(--color-gray-600); }
+
+.ws-search__clear:hover,
+.ws-search__submit:hover { color: var(--color-primary-d1); }
+
+.ws-search__clear:focus-visible,
+.ws-search__submit:focus-visible {
+  outline: none;
+  box-shadow: var(--ws-focus-ring);
+}
+
+/* Clear only when there is something to clear; Manual puts 12px between clear and submit */
+.ws-search__input:placeholder-shown ~ .ws-search__clear { display: none; }
+.ws-search__clear + .ws-search__submit { margin-left: var(--spacing-2); }
+
+/* ---- Sizes ---- */
+
+.ws-search--lg {
+  --search-icon: 20px;
+  padding: var(--spacing-4) var(--spacing-6);
+  font-size: var(--font-size-paragraph-large);
+}
+
+.ws-search--sm {
+  --search-icon: 14px;
+  padding: var(--spacing-3) var(--spacing-4);
+  font-size: var(--font-size-paragraph-small);
+}

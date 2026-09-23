@@ -55,7 +55,7 @@ These names match the portal prototype's `--color-*` variables exactly: all 154 
 - **Interactive components** (modal, dropdown, tabs, tooltip, popover, toggle) need only minimal vanilla JS. Put it in `components/<name>/<name>.js` as small exported functions (e.g. `initTabs(root)`), and use it in the stories.
 - **Stories** (CSF3, `@storybook/html`; see `button.stories.js`):
   - `title: 'Components/<Name>'`, `tags: ['autodocs']`, and a docs description that includes the Figma node ID.
-  - Export a render function for the markup (e.g. `export const badge = (args) => ...`) so other stories and the prototype can reuse it.
+  - Export a render function for the markup (e.g. `export const badge = (args) => ...`) so other stories and the prototype can reuse it. Name helpers in lowercase and set `excludeStories: /^[a-z]/` in the default export, so Storybook doesn't list them as stories.
   - A `Playground` story with controls for every Figma prop.
   - One or more "all variants" stories built with `matrix()` from `stories/helpers.js`, covering every variant × state that exists in Figma.
 - **Copy:** sentence case, with realistic aviation MRO examples where copy is needed (tail numbers like N375MZ, squawks, AOG, work orders, invoices).
@@ -72,3 +72,7 @@ These names match the portal prototype's `--color-*` variables exactly: all 154 
 
 - Run `npm run storybook`, open `http://localhost:6010/iframe.html?id=components-<name>--<story>`, and screenshot it. Compare against the Figma screenshot of the same variants.
 - Every story must render without console errors.
+
+## Next: the portal prototype
+
+Build the portal pages and screens from these components. Use the existing prototype (`../wsa-portal-prototype/prototype/index.html` and its `CLAUDE.md`) as the reference for content, page structure and interactions: all projects, overview, quote, squawks, activity, finances, documents, messages, timeline and notifications. The Figma pages under PLANNING (Customer Landing Page, PM Dashboard, Project Specific Dashboard, Fleet Dashboard, Squawk Management, All Projects) and IN DESIGN (Profile, Theme, Communication Preferences) hold the newer screen designs. Compose pages from `ws-*` components. Add page-level layout CSS only where no component covers it, and add a new component (with stories) rather than one-off styles when a pattern repeats.

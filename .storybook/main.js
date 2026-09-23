@@ -3,5 +3,5 @@ export default {
   framework: '@storybook/html-vite',
   stories: ['../stories/**/*.mdx', '../stories/**/*.stories.js', '../components/**/*.stories.js'],
   staticDirs: ['../assets'],
-  addons: [],
+  addons: ['@storybook/addon-docs'],
 };

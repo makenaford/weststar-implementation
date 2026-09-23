@@ -1,1 +1,114 @@
-/* TODO */
+/* Popover — Figma: 💠 Clay Components / Popover (800:20561)
+   Props → classes
+     Title          .ws-popover__title (inside .ws-popover__header)
+     Text           .ws-popover__body
+     Close Icon     optional .ws-popover__close (.ws-btn--borderless-secondary --xs --icon)
+     ScrollBar      .ws-popover--scroll (body scrolls past a max height)
+     Pointing       where the arrow sits, same names as Tooltip:
+                    .ws-popover--bottom-right | --bottom | --bottom-left | --left-bottom | --left | --left-top
+                    --top-left | --top | --top-right | --right-top | --right | --right-bottom
+   Behaviour: popover.js initPopovers(root) toggles a popover from a [data-popover-target] trigger.
+
+   Markup
+     <div class="ws-popover ws-popover--top" id="…" role="dialog" aria-labelledby="…">
+       <div class="ws-popover__header"><p class="ws-popover__title" id="…">Title</p>
+         <button class="ws-btn ws-btn--borderless-secondary ws-btn--xs ws-btn--icon ws-popover__close">…</button></div>
+       <div class="ws-popover__body">Text</div>
+     </div> */
+
+.ws-popover {
+  --popover-bg: var(--color-white);
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  width: min(262px, calc(100vw - 2 * var(--spacing-5)));
+  padding: var(--spacing-4) var(--spacing-5);
+  border-radius: var(--rounded-lg);
+  background: var(--popover-bg);
+  box-shadow: var(--shadow-popover);
+  color: var(--color-gray-900);
+  font-size: var(--font-size-paragraph-small);
+  line-height: var(--font-line-height-body);
+  text-align: left;
+}
+
+.ws-popover[hidden] { display: none; }
+
+.ws-popover__header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  min-height: 32px;
+  padding-bottom: var(--spacing-4);
+  border-bottom: 1px solid var(--color-gray-300);
+}
+
+.ws-popover__title {
+  flex: 1;
+  margin: 0;
+  font-weight: var(--font-weight-semibold);
+}
+
+.ws-popover__body {
+  margin: 0;
+  overflow-wrap: break-word;
+}
+
+.ws-popover--scroll .ws-popover__body {
+  max-height: 160px;
+  padding-right: var(--spacing-3);
+  overflow-y: auto;
+}
+
+/* ---- Arrow: 10×10 diamond centred on the edge, 8px in from the corner ---- */
+
+.ws-popover::before {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: var(--popover-bg);
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+}
+
+.ws-popover--bottom-right::before,
+.ws-popover--bottom::before,
+.ws-popover--bottom-left::before { bottom: -5px; }
+
+.ws-popover--top-left::before,
+.ws-popover--top::before,
+.ws-popover--top-right::before { top: -5px; }
+
+.ws-popover--left-bottom::before,
+.ws-popover--left::before,
+.ws-popover--left-top::before { left: -5px; }
+
+.ws-popover--right-top::before,
+.ws-popover--right::before,
+.ws-popover--right-bottom::before { right: -5px; }
+
+.ws-popover--bottom-left::before,
+.ws-popover--top-left::before { left: var(--spacing-3); }
+
+.ws-popover--bottom-right::before,
+.ws-popover--top-right::before { right: var(--spacing-3); }
+
+.ws-popover--bottom::before,
+.ws-popover--top::before { left: calc(50% - 5px); }
+
+.ws-popover--left-top::before,
+.ws-popover--right-top::before { top: var(--spacing-3); }
+
+.ws-popover--left-bottom::before,
+.ws-popover--right-bottom::before { bottom: var(--spacing-3); }
+
+.ws-popover--left::before,
+.ws-popover--right::before { top: calc(50% - 5px); }
+
+/* Floating instance positioned by popover.js */
+.ws-popover.is-floating {
+  position: fixed;
+  z-index: 1060;
+}

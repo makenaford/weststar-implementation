@@ -1,1 +1,89 @@
-/* TODO */
+/* Breadcrumb — Figma: 💠 Clay Components / Breadcrumb (114:2654), crumbs from _Crumb (114:2528)
+   Props → classes
+     Crumbs (2–5)        number of .ws-breadcrumb__item children in the ol.ws-breadcrumb
+     Variant Default     a.ws-breadcrumb__link followed by the angle-right .ws-breadcrumb__sep
+     Variant Nested      .ws-breadcrumb__link--nested holding angle-double-left-small / angle-double-right-small,
+                         for collapsed crumbs at the start (Left) or end (Right) of a long trail
+     State               :hover :focus-visible (underline), [aria-current='page'] on the last crumb (Active: semibold, no link),
+                         or .is-hover .is-focus .is-active for static display
+   Figma deviation, see README "Figma issues": the angle-right separator vector is an untokenised #6B6C7E
+   (its "Color Fill" layer is gray-900). This uses --color-gray-900 through currentColor. */
+
+.ws-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--font-size-paragraph-small);
+  line-height: var(--font-line-height-body);
+  color: var(--color-gray-900);
+}
+
+.ws-breadcrumb__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  min-width: 0;
+}
+
+.ws-breadcrumb__link {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+  border-radius: var(--rounded-md);
+  color: var(--color-gray-900);
+  font-weight: var(--font-weight-regular);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: box-shadow var(--ws-transition);
+}
+
+.ws-breadcrumb__link:hover,
+.ws-breadcrumb__link.is-hover {
+  text-decoration: underline;
+}
+
+.ws-breadcrumb__link:focus-visible,
+.ws-breadcrumb__link.is-focus {
+  outline: none;
+  text-decoration: underline;
+  box-shadow: var(--ws-focus-ring);
+}
+
+.ws-breadcrumb__sep {
+  width: 10px;
+  height: 10px;
+  color: var(--color-gray-900);
+}
+
+/* Active: the current page. Semibold with 4px × 8px padding and a pill radius (for its focus ring). */
+.ws-breadcrumb__current,
+.ws-breadcrumb__link.is-active {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--spacing-2) var(--spacing-3);
+  border-radius: var(--rounded-full);
+  color: var(--color-gray-900);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* Nested: collapsed crumbs (« at the start, » at the end) */
+.ws-breadcrumb__link--nested {
+  padding: var(--spacing-1) 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
+}
+
+.ws-breadcrumb__link--nested .ws-icon { width: 16px; height: 16px; }
+
+.ws-breadcrumb__link--nested:hover,
+.ws-breadcrumb__link--nested.is-hover {
+  text-decoration: none;
+}

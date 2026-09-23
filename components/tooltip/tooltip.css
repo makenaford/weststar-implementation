@@ -1,1 +1,88 @@
-/* TODO */
+/* Tooltip — Figma: 💠 Clay Components / Tooltip (742:540)
+   Props → classes
+     Tooltip text   text content of .ws-tooltip
+     Pointing       where the arrow sits (the tooltip is on the opposite side of its trigger):
+                    Bottom ↓ Right ↘  .ws-tooltip--bottom-right   Top ↑ Left ↖    .ws-tooltip--top-left
+                    Bottom ↓ Center ↓ .ws-tooltip--bottom         Top ↑ Center ↑  .ws-tooltip--top
+                    Bottom ↓ Left ↙   .ws-tooltip--bottom-left    Top ↑ Right ↗   .ws-tooltip--top-right
+                    Left ← Bottom ↙   .ws-tooltip--left-bottom    Right → Top ↗    .ws-tooltip--right-top
+                    Left ← Center ←   .ws-tooltip--left           Right → Center → .ws-tooltip--right
+                    Left ← Top ↖      .ws-tooltip--left-top       Right → Bottom ↘ .ws-tooltip--right-bottom
+   The arrow is pure CSS (::before, a 10×10 diamond centred on the edge, 8px in from the corner).
+   Behaviour: tooltip.js initTooltips(root) shows a tooltip for any [data-tooltip] on hover/focus.
+   Figma note: side arrows sit 8px from one corner and 6px from the other (hug rounding); 8px is used for both. */
+
+.ws-tooltip {
+  --tooltip-bg: var(--color-gray-900);
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  max-width: 280px;
+  padding: var(--spacing-3) var(--spacing-5);
+  border-radius: var(--rounded-lg);
+  background: var(--tooltip-bg);
+  box-shadow: var(--shadow-tooltip);
+  color: var(--color-white);
+  font-size: var(--font-size-paragraph-small);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--font-line-height-body);
+  text-align: left;
+  overflow-wrap: break-word;
+}
+
+.ws-tooltip[hidden] { display: none; }
+
+.ws-tooltip::before {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: inherit;
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+}
+
+/* Arrow on the bottom edge */
+.ws-tooltip--bottom-right::before,
+.ws-tooltip--bottom::before,
+.ws-tooltip--bottom-left::before { bottom: -5px; }
+
+/* Arrow on the top edge */
+.ws-tooltip--top-left::before,
+.ws-tooltip--top::before,
+.ws-tooltip--top-right::before { top: -5px; }
+
+/* Arrow on the left edge */
+.ws-tooltip--left-bottom::before,
+.ws-tooltip--left::before,
+.ws-tooltip--left-top::before { left: -5px; }
+
+/* Arrow on the right edge */
+.ws-tooltip--right-top::before,
+.ws-tooltip--right::before,
+.ws-tooltip--right-bottom::before { right: -5px; }
+
+.ws-tooltip--bottom-left::before,
+.ws-tooltip--top-left::before { left: var(--spacing-3); }
+
+.ws-tooltip--bottom-right::before,
+.ws-tooltip--top-right::before { right: var(--spacing-3); }
+
+.ws-tooltip--bottom::before,
+.ws-tooltip--top::before { left: calc(50% - 5px); }
+
+.ws-tooltip--left-top::before,
+.ws-tooltip--right-top::before { top: var(--spacing-3); }
+
+.ws-tooltip--left-bottom::before,
+.ws-tooltip--right-bottom::before { bottom: var(--spacing-3); }
+
+.ws-tooltip--left::before,
+.ws-tooltip--right::before { top: calc(50% - 5px); }
+
+/* Floating instance created by tooltip.js */
+.ws-tooltip.is-floating {
+  position: fixed;
+  z-index: 1070;
+  pointer-events: none;
+}

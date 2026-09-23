@@ -1,1 +1,140 @@
-/* TODO */
+/* Navigation Bar — Figma: 💠 Clay Components / Navigation Bar (502:4177), items from _NavBar Tab (502:3962)
+   Props → classes
+     Style        (Bar, default: 4px underline on the active item) | .ws-navbar--pill (filled rounded active item)
+     Inverted     .ws-navbar--inverted (dark navy portal top bar: primary-d1 background, primary bottom border, primary-l2 text)
+     Nav Items    .ws-navbar__item children (links or buttons)
+     Dropdown     optional caret-bottom .ws-icon after the label
+     Label        text of .ws-navbar__item
+     State        :hover :focus-visible, [aria-current='page'] (Active), :disabled / [aria-disabled='true'],
+                  or .is-hover .is-focus .is-active .is-disabled for static display
+   Figma deviations, see README "Figma issues":
+     - Inverted is drawn on black in Figma with gray-200 text and a primary-d1 pill for Active. On the portal's
+       primary-d1 bar that pill would be invisible, so inverted uses primary-l2 text (per the portal), a primary
+       Active pill and a primary-d2 Hover pill.
+     - The Bar style has no hover change in Figma; kept as is (only the text/underline states change). */
+
+.ws-navbar {
+  --nav-bg: var(--color-white);
+  --nav-border: transparent;
+  --nav-color: var(--color-gray-900);
+  --nav-color-hover: var(--nav-color);
+  --nav-color-active: var(--nav-color);
+  --nav-item-bg-hover: transparent;
+  --nav-item-bg-active: transparent;
+  --nav-bar: var(--color-primary-d2);
+
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  min-height: 48px;
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid var(--nav-border);
+  background: var(--nav-bg);
+  list-style: none;
+}
+
+.ws-navbar__item {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  height: 48px;
+  padding: 13.5px var(--spacing-5);
+  border: 0;
+  border-radius: var(--rounded-lg);
+  background: transparent;
+  color: var(--nav-color);
+  font-family: inherit;
+  font-size: var(--font-size-paragraph-small);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--font-line-height-body);
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--ws-transition), color var(--ws-transition), box-shadow var(--ws-transition);
+}
+
+.ws-navbar__item .ws-icon { width: 16px; height: 16px; }
+
+.ws-navbar__item:hover,
+.ws-navbar__item.is-hover {
+  background: var(--nav-item-bg-hover);
+  color: var(--nav-color-hover);
+}
+
+.ws-navbar__item:focus-visible,
+.ws-navbar__item.is-focus {
+  outline: none;
+  background: var(--nav-item-bg-hover);
+  color: var(--nav-color-hover);
+  box-shadow: var(--ws-focus-ring);
+}
+
+.ws-navbar__item[aria-current='page'],
+.ws-navbar__item[aria-current='true'],
+.ws-navbar__item.is-active {
+  background: var(--nav-item-bg-active);
+  color: var(--nav-color-active);
+}
+
+.ws-navbar__item:disabled,
+.ws-navbar__item[aria-disabled='true'],
+.ws-navbar__item.is-disabled {
+  background: transparent;
+  color: var(--nav-color);
+  box-shadow: none;
+  opacity: var(--translucent-1);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ---- Style: Bar (default): 4px underline on the active item ---- */
+
+.ws-navbar:not(.ws-navbar--pill) .ws-navbar__item {
+  border-radius: 0;
+}
+
+.ws-navbar:not(.ws-navbar--pill) .ws-navbar__item:focus-visible,
+.ws-navbar:not(.ws-navbar--pill) .ws-navbar__item.is-focus {
+  border-radius: var(--rounded-lg);
+}
+
+.ws-navbar:not(.ws-navbar--pill) .ws-navbar__item::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  background: transparent;
+}
+
+.ws-navbar:not(.ws-navbar--pill) .ws-navbar__item:is([aria-current='page'], [aria-current='true'], .is-active)::after {
+  background: var(--nav-bar);
+}
+
+/* ---- Style: Pill ---- */
+
+.ws-navbar--pill {
+  --nav-bg: transparent;
+  --nav-item-bg-hover: var(--color-primary-l3);
+  --nav-item-bg-active: var(--color-primary-l2);
+}
+
+/* ---- Inverted: the portal's dark navy top bar ---- */
+
+.ws-navbar--inverted {
+  --nav-bg: var(--color-primary-d1);
+  --nav-border: var(--color-primary);
+  --nav-color: var(--color-primary-l2);
+  --nav-color-hover: var(--color-white);
+  --nav-color-active: var(--color-white);
+  --nav-bar: var(--color-white);
+}
+
+.ws-navbar--inverted.ws-navbar--pill {
+  --nav-item-bg-hover: var(--color-primary-d2);
+  --nav-item-bg-active: var(--color-primary);
+}

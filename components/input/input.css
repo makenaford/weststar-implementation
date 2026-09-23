@@ -1,1 +1,239 @@
-/* TODO */
+/* Input — Figma: 💠 Clay Components / Input (334:22427), Input Group (348:16136), _InputGroupField (799:12644)
+   Markup:
+     <div class="ws-form-group">
+       <label class="ws-form-group__label" for="x">Label <span class="ws-form-group__required">*</span> [.ws-icon]</label>
+       <input class="ws-input" id="x">                     (or <textarea class="ws-input">)
+       <div class="ws-input-control"><select class="ws-input">…</select><svg class="ws-icon ws-input-control__icon">caret-bottom</svg></div>
+       <p class="ws-form-group__help">…</p>              (Help Text)
+       <p class="ws-form-group__feedback"><svg class="ws-icon">…</svg><span><strong>Error:</strong> …</span></p>
+     </div>
+   Props → classes
+     Size            (Regular) | .ws-form-group--sm (label, help, and every .ws-input inside) or .ws-input--sm on a bare control
+     Type            <input> | <textarea> | <select> inside .ws-input-control (caret)
+     State           Placeholder / Filled: native; Active (Focus): :focus-visible or .is-focus; Disabled: :disabled or .is-disabled;
+                     Read Only: [readonly] or .is-readonly; Success / Warning / Error: .ws-form-group--success | --warning | --error
+     Label           .ws-form-group__label; Label_Required → .ws-form-group__required; Label_Icon → .ws-icon inside the label
+     Input_Icon      .ws-input-control > .ws-input + .ws-icon.ws-input-control__icon (trailing, e.g. view)
+     Help Text       .ws-form-group__help;  Validation → .ws-form-group__feedback
+   Input Group
+     .ws-input-group [--sm] joins children edge to edge: .ws-input, .ws-btn (Button Left/Right), and .ws-input-group__text
+     (Units $ / .00, Username @, URL /, Email @domain). .ws-input-group__text--control holds a bare .ws-checkbox__input or
+     .ws-radio__input (Checkbox / Radio types).
+   Figma deviations (README "Figma issues"):
+     - Focus border is an untokenised #88ACFF ("Focused Outline inputs"); uses --color-focus-outer. Focus fill is a raw #FFFFFF; uses --color-white.
+     - Text Area is 93px tall at Regular and 96px at Small; both use min-height 96px.
+     - Input Group outer corners mix 4px (addons, buttons) and 8px (fields); all use --rounded-lg to match Input. */
+
+/* ---- Form group ---- */
+
+.ws-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  color: var(--text-body);
+  font-size: var(--font-size-paragraph-base);
+  line-height: var(--font-line-height-body);
+}
+
+.ws-form-group__label {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  font-weight: var(--font-weight-semibold);
+}
+
+.ws-form-group__label .ws-icon {
+  width: 16px;
+  height: 16px;
+  color: var(--color-gray-600);
+}
+
+.ws-form-group__required {
+  color: var(--color-warning);
+  font-size: var(--font-size-paragraph-small);
+  font-weight: var(--font-weight-semibold);
+}
+
+.ws-form-group__help,
+.ws-form-group__feedback {
+  margin: 0;
+  font-size: var(--font-size-paragraph-small);
+}
+
+.ws-form-group__help { color: var(--color-gray-600); }
+
+.ws-form-group__feedback {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-3);
+}
+
+.ws-form-group__feedback .ws-icon {
+  width: 16px;
+  height: 16px;
+  margin-top: 2.5px;
+}
+
+.ws-form-group__feedback strong { font-weight: var(--font-weight-semibold); }
+
+.ws-form-group--sm .ws-form-group__label { font-size: var(--font-size-paragraph-small); }
+
+/* ---- Control ---- */
+
+.ws-input {
+  --input-bg: var(--color-white);
+  --input-border: var(--color-gray-400);
+
+  display: block;
+  width: 100%;
+  min-width: 0;
+  height: 48px;
+  margin: 0;
+  padding: var(--spacing-4) var(--spacing-5);
+  border: 1px solid var(--input-border);
+  border-radius: var(--rounded-lg);
+  background: var(--input-bg);
+  color: var(--text-body);
+  font-family: inherit;
+  font-size: var(--font-size-paragraph-base);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--font-line-height-body);
+  appearance: none;
+  transition: border-color var(--ws-transition), box-shadow var(--ws-transition);
+}
+
+.ws-input::placeholder { color: var(--text-placeholder); opacity: 1; }
+
+textarea.ws-input {
+  height: auto;
+  min-height: 96px;
+  resize: vertical;
+}
+
+select.ws-input { padding-right: calc(var(--spacing-5) + 16px + var(--spacing-2)); cursor: pointer; }
+select.ws-input:has(option[value='']:checked) { color: var(--text-placeholder); }
+
+.ws-input:focus-visible,
+.ws-input.is-focus {
+  outline: none;
+  --input-bg: var(--color-white);
+  --input-border: var(--color-focus-outer);
+  box-shadow: var(--ws-focus-ring);
+}
+
+.ws-input[readonly],
+.ws-input.is-readonly {
+  --input-bg: var(--color-gray-100);
+  --input-border: var(--color-gray-400);
+}
+
+.ws-input:disabled,
+.ws-input.is-disabled {
+  --input-bg: var(--color-gray-100);
+  --input-border: var(--color-gray-300);
+  box-shadow: none;
+  opacity: var(--translucent-1);
+  cursor: not-allowed;
+}
+
+/* ---- Validation ---- */
+
+.ws-form-group--success { --feedback-color: var(--color-success); }
+.ws-form-group--warning { --feedback-color: var(--color-warning); }
+.ws-form-group--error { --feedback-color: var(--color-danger); }
+
+.ws-form-group--success .ws-input:not(:focus-visible, .is-focus) { --input-bg: var(--color-success-l2); --input-border: var(--color-success-l1); }
+.ws-form-group--warning .ws-input:not(:focus-visible, .is-focus) { --input-bg: var(--color-warning-l2); --input-border: var(--color-warning-l1); }
+.ws-form-group--error .ws-input:not(:focus-visible, .is-focus) { --input-bg: var(--color-danger-l2); --input-border: var(--color-danger-l1); }
+
+.ws-form-group__feedback { color: var(--feedback-color, var(--color-gray-600)); }
+
+/* ---- Trailing icon / select caret ---- */
+
+.ws-input-control {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.ws-input-control:has(.ws-input-control__icon) > .ws-input {
+  padding-right: calc(var(--spacing-5) + 16px + var(--spacing-2));
+}
+
+.ws-input-control__icon {
+  position: absolute;
+  top: 50%;
+  right: var(--spacing-5);
+  width: 16px;
+  height: 16px;
+  color: var(--color-gray-600);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.ws-input-control:has(.ws-input:disabled, .ws-input.is-disabled) .ws-input-control__icon { opacity: var(--translucent-1); }
+
+/* ---- Small ---- */
+
+:is(.ws-input--sm, .ws-form-group--sm .ws-input, .ws-input-group--sm .ws-input) {
+  height: 40px;
+  padding: 9.5px var(--spacing-4);
+  font-size: var(--font-size-paragraph-small);
+}
+
+textarea:is(.ws-input--sm, .ws-form-group--sm .ws-input) { height: auto; }
+
+:is(.ws-input--sm, .ws-form-group--sm .ws-input) ~ .ws-input-control__icon { right: var(--spacing-4); }
+.ws-input-control:has(.ws-input-control__icon) > :is(.ws-input--sm, .ws-form-group--sm .ws-input) {
+  padding-right: calc(var(--spacing-4) + 16px + var(--spacing-2));
+}
+
+/* ---- Input group ---- */
+
+.ws-input-group {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+}
+
+.ws-input-group > * {
+  position: relative;
+  flex-shrink: 0;
+  border-radius: 0;
+}
+
+.ws-input-group > * + * { margin-left: -1px; }
+.ws-input-group > .ws-input { flex: 1 1 auto; width: 1%; }
+
+.ws-input-group > :first-child { border-top-left-radius: var(--rounded-lg); border-bottom-left-radius: var(--rounded-lg); }
+.ws-input-group > :last-child { border-top-right-radius: var(--rounded-lg); border-bottom-right-radius: var(--rounded-lg); }
+
+/* Raise the focused piece so its border and ring sit above its neighbours */
+.ws-input-group > :focus-visible,
+.ws-input-group > .is-focus,
+.ws-input-group > :focus-within { z-index: 1; }
+
+/* Focus_Button: Figma draws the focused button with all four corners rounded */
+.ws-input-group > .ws-btn:focus-visible,
+.ws-input-group > .ws-btn.is-focus { border-radius: var(--rounded-lg); }
+
+.ws-input-group__text {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-3) var(--spacing-4);
+  border: 1px solid var(--color-gray-400);
+  background: var(--color-gray-200);
+  color: var(--color-gray-600);
+  font-size: var(--font-size-paragraph-base);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--font-line-height-body);
+  white-space: nowrap;
+}
+
+.ws-input-group__text--control { background: var(--color-white); }
+.ws-input-group__text--control > input { margin: 0; }
+
+.ws-input-group--sm .ws-input-group__text { font-size: var(--font-size-paragraph-small); }
+.ws-input-group--sm > .ws-btn { height: 40px; }
+
+.ws-input-group:has(.ws-input:disabled, .ws-input.is-disabled) > .ws-input-group__text { opacity: var(--translucent-1); }

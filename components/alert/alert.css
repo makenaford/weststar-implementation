@@ -1,1 +1,213 @@
-/* TODO */
+/* Alert — Figma: 💠 Clay Components / Alert (92:1961)
+   Props → classes
+     Variant        (Vertical) | .ws-alert--inline | .ws-alert--feedback
+     Type           .ws-alert--toast (shadow) | (Embedded) | .ws-alert--stripe (square, bottom border only)
+                    Feedback only exists as Type=Simple: no box, coloured text, no close or actions.
+     Validation     .ws-alert--info | --success | --warning | --danger
+     Close Button   optional .ws-alert__close (a .ws-btn, tinted to the validation colour)
+     Actions        optional .ws-alert__actions holding .ws-btn--sm buttons
+                    (↳ Primary = .ws-btn--primary, ↳ Secondary = .ws-btn--outline-primary; both re-tinted here).
+                    Vertical puts actions under the message; Inline puts them to the right.
+   Toast stack      .ws-toast-stack: fixed, stacked container for dismissible toasts (see alert.js showToast()).
+
+   Markup
+     <div class="ws-alert ws-alert--info ws-alert--toast" role="status">
+       <div class="ws-alert__main">
+         <div class="ws-alert__content"><svg class="ws-icon ws-alert__icon">…</svg>
+           <p class="ws-alert__message"><strong>Info:</strong> Message</p></div>
+         <div class="ws-alert__actions">…buttons…</div>
+       </div>
+       <button class="ws-btn ws-btn--icon ws-alert__close" aria-label="Dismiss">…times…</button>
+     </div> */
+
+.ws-alert {
+  --alert-bg: var(--color-info-l2);
+  --alert-border: var(--color-info-l1);
+  --alert-accent: var(--color-info);
+  --alert-accent-hover: var(--color-info-d1);
+  --alert-accent-active: var(--color-info-d2);
+  /* Centres a 16px icon on the first 21px line (Paragraph/Small, 150%). */
+  --alert-icon-offset: calc((var(--font-size-paragraph-small) * 1.5 - 16px) / 2);
+
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-5);
+  padding: var(--spacing-5);
+  border: 1px solid var(--alert-border);
+  border-radius: var(--rounded-lg);
+  background: var(--alert-bg);
+  color: var(--color-gray-900);
+  font-size: var(--font-size-paragraph-small);
+  line-height: var(--font-line-height-body);
+}
+
+.ws-alert__main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  min-width: 0;
+}
+
+.ws-alert__content {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-3);
+}
+
+.ws-alert__icon {
+  width: 16px;
+  height: 16px;
+  margin-top: var(--alert-icon-offset);
+  color: var(--alert-accent);
+}
+
+.ws-alert__message {
+  margin: 0;
+}
+
+.ws-alert__message strong {
+  font-weight: var(--font-weight-semibold);
+}
+
+.ws-alert__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-5);
+  padding-left: var(--spacing-7); /* 16px icon + 8px gap: aligns with the message */
+}
+
+/* Buttons take the validation colour instead of primary. */
+.ws-alert .ws-btn--primary {
+  --btn-bg: var(--alert-accent);
+  --btn-bg-hover: var(--alert-accent-hover);
+  --btn-bg-active: var(--alert-accent-active);
+}
+
+.ws-alert .ws-btn--outline-primary {
+  --btn-border: var(--alert-accent);
+  --btn-color: var(--alert-accent);
+  --btn-bg-hover: var(--alert-border);
+  --btn-border-hover: var(--alert-accent-hover);
+  --btn-color-hover: var(--alert-accent-hover);
+  --btn-bg-active: var(--alert-border);
+  --btn-border-active: var(--alert-accent-active);
+  --btn-color-active: var(--alert-accent-active);
+}
+
+/* Close: a 16px borderless icon button in the validation colour. */
+.ws-alert__close.ws-btn {
+  --btn-color: var(--alert-accent);
+  --btn-color-hover: var(--alert-accent-hover);
+  --btn-color-active: var(--alert-accent-active);
+  --btn-bg-hover: var(--alert-border);
+  --btn-bg-active: var(--alert-border);
+  width: 16px;
+  height: 16px;
+  margin-top: var(--alert-icon-offset);
+  padding: 0;
+  border: 0;
+  border-radius: var(--rounded-md);
+}
+
+/* ---- Validation ---- */
+
+.ws-alert--success {
+  --alert-bg: var(--color-success-l2);
+  --alert-border: var(--color-success-l1);
+  --alert-accent: var(--color-success);
+  --alert-accent-hover: var(--color-success-d1);
+  --alert-accent-active: var(--color-success-d2);
+}
+
+.ws-alert--warning {
+  --alert-bg: var(--color-warning-l2);
+  --alert-border: var(--color-warning-l1);
+  --alert-accent: var(--color-warning);
+  --alert-accent-hover: var(--color-warning-d1);
+  --alert-accent-active: var(--color-warning-d2);
+}
+
+.ws-alert--danger {
+  --alert-bg: var(--color-danger-l2);
+  --alert-border: var(--color-danger-l1);
+  --alert-accent: var(--color-danger);
+  --alert-accent-hover: var(--color-danger-d1);
+  --alert-accent-active: var(--color-danger-d2);
+}
+
+/* ---- Type ---- */
+
+.ws-alert--toast {
+  box-shadow: var(--shadow-alert);
+}
+
+.ws-alert--stripe {
+  border-width: 0 0 1px;
+  border-radius: 0;
+}
+
+/* ---- Variant ---- */
+
+.ws-alert--inline .ws-alert__main {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--spacing-5);
+}
+
+.ws-alert--inline .ws-alert__content {
+  flex: 1;
+}
+
+.ws-alert--inline .ws-alert__actions {
+  flex-wrap: nowrap;
+  padding-left: 0;
+}
+
+.ws-alert--inline .ws-alert__close.ws-btn {
+  align-self: center;
+  margin-top: 0;
+}
+
+.ws-alert--feedback {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  color: var(--alert-accent);
+}
+
+/* ---- Toast stack ---- */
+
+.ws-toast-stack {
+  position: fixed;
+  top: var(--spacing-8);
+  right: var(--spacing-8);
+  z-index: 1080;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  width: min(360px, calc(100vw - 2 * var(--spacing-8)));
+  pointer-events: none;
+}
+
+.ws-toast-stack > .ws-alert {
+  pointer-events: auto;
+  animation: ws-toast-in 200ms ease-out;
+}
+
+.ws-toast-stack > .ws-alert.is-leaving {
+  opacity: 0;
+  transform: translateX(16px);
+  transition: opacity var(--ws-transition), transform var(--ws-transition);
+}
+
+@keyframes ws-toast-in {
+  from { opacity: 0; transform: translateX(16px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ws-toast-stack > .ws-alert,
+  .ws-toast-stack > .ws-alert.is-leaving { animation: none; transition: none; transform: none; }
+}

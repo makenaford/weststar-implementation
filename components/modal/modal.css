@@ -1,1 +1,162 @@
-/* TODO */
+/* Modal — Figma: 💠 Clay Components / Modal (470:15295)
+   with parts _Modal Header (12611:66655), _Modal Body (8197:119526), _Modal Footer (12612:66656)
+   Props → classes
+     Variant=Default   .ws-modal (a native <dialog>; open with modal.js openModal())
+     Variant=Status    .ws-modal--status + Status .ws-modal--error | --warning | --success
+                       (centred body with .ws-modal__status-icon, centred footer)
+     Variant=Overlay   the dialog's ::backdrop (gray-700 at 80%); .ws-modal-overlay for a static preview
+     Header Style      Blank (close only) | Icon + Text: .ws-modal__icon + .ws-modal__title
+     Closeable         optional .ws-modal__close (.ws-btn--borderless-secondary --sm --icon)
+     Slot / Swap Me    .ws-modal__body content
+     Footer            optional .ws-modal__footer
+     3º Button         optional tertiary .ws-btn--borderless-secondary in the footer
+     Btn Position      (Right) | .ws-modal__footer--center | .ws-modal__footer--left
+     Static display    .ws-modal--static + [open] renders the dialog in the page flow (stories only)
+   Figma note: header and footer carry hidden bottom strokes and 4px top radii; neither is visible, so they are omitted. */
+
+.ws-modal {
+  --modal-status: var(--color-success);
+  --modal-status-bg: var(--color-success-l2);
+
+  width: min(600px, calc(100vw - 2 * var(--spacing-5)));
+  max-width: none;
+  max-height: calc(100vh - 2 * var(--spacing-5));
+  padding: 0;
+  border: 0;
+  border-radius: var(--rounded-xlg);
+  background: var(--color-white);
+  box-shadow: var(--shadow-modal);
+  color: var(--color-gray-900);
+  font-family: inherit;
+  font-size: var(--font-size-paragraph-base);
+  line-height: var(--font-line-height-body);
+  overflow: hidden;
+}
+
+.ws-modal[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+.ws-modal::backdrop {
+  background: color-mix(in srgb, var(--color-gray-700) 80%, transparent);
+}
+
+.ws-modal--static {
+  position: static;
+  margin: 0;
+}
+
+/* ---- Header ---- */
+
+.ws-modal__header {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--spacing-3);
+  min-height: 56px;
+  padding: var(--spacing-3) var(--spacing-7);
+}
+
+.ws-modal__icon {
+  width: 16px;
+  height: 16px;
+  color: var(--color-gray-600);
+}
+
+.ws-modal__title {
+  flex: 1;
+  margin: 0;
+  font-size: var(--font-size-h5);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--font-line-height-body);
+}
+
+/* ---- Body ---- */
+
+.ws-modal__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--spacing-5);
+  min-height: 0;
+  padding: var(--spacing-7);
+  overflow-y: auto;
+}
+
+.ws-modal__body > p { margin: 0; }
+
+/* ---- Footer ---- */
+
+.ws-modal__footer {
+  display: flex;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--spacing-3);
+  padding: var(--spacing-5) var(--spacing-7);
+}
+
+.ws-modal__footer--center { justify-content: center; }
+.ws-modal__footer--left { justify-content: flex-start; }
+
+/* ---- Status ---- */
+
+.ws-modal--status .ws-modal__body {
+  align-items: center;
+  gap: var(--spacing-4);
+  padding: calc(var(--spacing-7) + var(--spacing-2)) var(--spacing-10); /* Slot 24 + _Modal Body 4/24 */
+  text-align: center;
+}
+
+.ws-modal__status-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--modal-status);
+  border-radius: var(--rounded-full);
+  background: var(--modal-status-bg);
+  color: var(--modal-status);
+}
+
+.ws-modal__status-icon .ws-icon { width: 24px; height: 24px; }
+
+.ws-modal__status-title {
+  margin: 0;
+  font-size: var(--font-size-h4);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--font-line-height-heading);
+}
+
+.ws-modal--error {
+  --modal-status: var(--color-danger);
+  --modal-status-bg: var(--color-danger-l2);
+}
+
+.ws-modal--warning {
+  --modal-status: var(--color-warning);
+  --modal-status-bg: var(--color-warning-l2);
+}
+
+/* ---- Static overlay preview (Figma Variant=Overlay) ---- */
+
+.ws-modal-overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-10) var(--spacing-5);
+  background: color-mix(in srgb, var(--color-gray-700) 80%, transparent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ws-modal[open]:not(.ws-modal--static) { animation: ws-modal-in 150ms ease-out; }
+  .ws-modal[open]:not(.ws-modal--static)::backdrop { animation: ws-modal-fade 150ms ease-out; }
+}
+
+@keyframes ws-modal-in { from { opacity: 0; transform: translateY(8px); } }
+@keyframes ws-modal-fade { from { opacity: 0; } }

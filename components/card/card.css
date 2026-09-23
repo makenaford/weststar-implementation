@@ -1,1 +1,366 @@
-/* TODO */
+/* Card — Figma: 💠 Clay Components / Card (248:7552), built on Surface (12435:75676)
+   Props → classes
+     Surface Style   (Default: white, Shadow/Card-Default) | .ws-card--flat (gray-100, no shadow) | .ws-card--outline (Card/Outline border)
+     Orientation     (Vertical) | .ws-card--horizontal
+     Type            Image          .ws-card__media (3:2 image; 1:1 on the left when horizontal) + .ws-card__body
+                     Icon           .ws-card__header containing a 48px .ws-card__icon
+                     User           .ws-card__header containing an 80px round .ws-card__avatar
+                     Navigation     .ws-card--navigation (centred 64px icon + text; horizontal = sticker + title row)
+                     Folder         .ws-card--folder (checkbox + sticker + title row)
+                     Text           .ws-card--text (text only, 24px padding)
+                     Metrics Card   .ws-card--metrics (stat tile: .ws-card__metric, .ws-card__trend, .ws-card__metric-label)
+                     No background  .ws-card--plain (no surface; the image gets the rounded outline)
+     State           Default | Hover (:hover on a[href].ws-card / .ws-card--interactive, or .is-hover) |
+                     Active (:active, .is-active) | Disabled (.is-disabled / aria-disabled="true")
+     Size            (Small: H5 title) | .ws-card--md (H4 title)
+     Booleans        Subtitle → .ws-card__subtitle, Description → .ws-card__description, Metadata → .ws-card__meta,
+                     Checkbox → .ws-card__check, Overflow Btn → .ws-card__overflow (a borderless icon .ws-btn)
+   The portal uses the default white card on the gray-100 page background.
+   Figma deviations (see README "Figma issues"):
+     - Surface State=Active uses an unnamed drop shadow (0 4px 4px, 8%) instead of an effect style.
+       Shadow/Card-Default is used here.
+     - The Metrics Card shows the "$" prefix and "%" suffix at the same time; use one or the other.
+     - Card Body padding is 16px 8px 16px 16px (the 8px leaves room for a right slot). 16px all round is used here.
+     - The Navigation icon vector has an untokenised fill (#1C1B1F) under a gray-600 color fill; gray-600 is used.
+     - The Slot Top/Bottom Left/Right placeholders (pink boxes) are not built; use .ws-card__check / __overflow. */
+
+.ws-card {
+  --card-bg: var(--card-background-default);
+  --card-border: transparent;
+  --card-shadow: var(--shadow-card-default);
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  border: 1px solid var(--card-border);
+  border-radius: var(--rounded-lg);
+  background: var(--card-bg);
+  box-shadow: var(--card-shadow);
+  color: var(--text-body);
+  text-decoration: none;
+  overflow: hidden;
+  transition: box-shadow var(--ws-transition), opacity var(--ws-transition);
+}
+
+/* ---- Surface styles ---- */
+
+.ws-card--flat {
+  --card-bg: var(--color-gray-100);
+  --card-shadow: none;
+}
+
+.ws-card--outline {
+  --card-border: var(--card-outline);
+  --card-shadow: none;
+}
+
+/* ---- States ---- */
+
+a.ws-card:hover,
+.ws-card--interactive:hover,
+.ws-card.is-hover {
+  --card-shadow: var(--shadow-card-hover);
+  cursor: pointer;
+}
+
+a.ws-card:hover .ws-card__title,
+.ws-card--interactive:hover .ws-card__title,
+.ws-card.is-hover .ws-card__title {
+  text-decoration: underline;
+}
+
+a.ws-card:active,
+.ws-card--interactive:active,
+.ws-card.is-active {
+  --card-shadow: var(--shadow-card-default);
+}
+
+.ws-card:focus-visible,
+.ws-card.is-focus {
+  outline: none;
+  box-shadow: var(--card-shadow), var(--ws-focus-ring);
+}
+
+.ws-card.is-disabled,
+.ws-card[aria-disabled='true'] {
+  opacity: var(--translucent-1);
+  pointer-events: none;
+}
+
+.ws-card--flat.is-hover,
+.ws-card--flat:is(a, .ws-card--interactive):hover,
+.ws-card--outline.is-hover,
+.ws-card--outline:is(a, .ws-card--interactive):hover {
+  --card-shadow: var(--shadow-card-hover);
+}
+
+/* ---- Media and headers ---- */
+
+.ws-card__media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 3 / 2;
+  background: var(--color-primary-l3);
+  color: var(--color-primary-l1);
+  overflow: hidden;
+}
+
+.ws-card__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ws-card__media > .ws-icon { width: 32px; height: 32px; }
+
+.ws-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-5) var(--spacing-9) 0;
+}
+
+.ws-card__icon {
+  width: 48px;
+  height: 48px;
+  color: var(--color-gray-900);
+}
+
+.ws-card__avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  border-radius: var(--rounded-full);
+  background: var(--color-primary-l3);
+  color: var(--color-primary);
+  overflow: hidden;
+}
+
+.ws-card__avatar .ws-icon { width: 32px; height: 32px; }
+.ws-card__avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+.ws-card__sticker {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--rounded-lg);
+  color: var(--color-gray-600);
+}
+
+.ws-card__sticker .ws-icon { width: 16px; height: 16px; }
+
+/* ---- Body and text ---- */
+
+.ws-card__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--spacing-5);
+  padding: var(--spacing-5);
+}
+
+.ws-card__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.ws-card__subtitle {
+  margin: 0;
+  font-size: var(--font-size-paragraph-x-small);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--font-line-height-body);
+  text-transform: uppercase;
+}
+
+.ws-card__title {
+  margin: 0;
+  font-size: var(--font-size-h5);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--font-line-height-body);
+}
+
+.ws-card--md .ws-card__title {
+  font-size: var(--font-size-h4);
+  line-height: var(--font-line-height-heading);
+}
+
+.ws-card__description {
+  margin: 0;
+  font-size: var(--font-size-paragraph-base);
+  line-height: var(--font-line-height-body);
+}
+
+.ws-card__meta {
+  margin: 0;
+  font-size: var(--font-size-paragraph-small);
+  line-height: var(--font-line-height-body);
+}
+
+.ws-card__check {
+  position: absolute;
+  top: var(--spacing-4);
+  left: var(--spacing-4);
+  z-index: 1;
+}
+
+.ws-card__overflow {
+  position: absolute;
+  top: var(--spacing-3);
+  right: var(--spacing-3);
+  z-index: 1;
+}
+
+
+/* ---- Horizontal ---- */
+
+.ws-card--horizontal { flex-direction: row; }
+
+.ws-card--horizontal .ws-card__media {
+  flex: 0 0 auto;
+  width: 236px;
+  aspect-ratio: 1 / 1;
+}
+
+.ws-card--horizontal .ws-card__header { padding: var(--spacing-5) 0 var(--spacing-5) var(--spacing-5); }
+
+.ws-card--horizontal .ws-card__body {
+  justify-content: center;
+  padding: var(--spacing-7);
+}
+
+.ws-card--horizontal:has(.ws-card__header) .ws-card__body { padding: var(--spacing-5); }
+
+/* ---- Text ---- */
+
+.ws-card--text .ws-card__body {
+  gap: var(--spacing-3);
+  padding: var(--spacing-7);
+}
+
+.ws-card--text .ws-card__text { gap: var(--spacing-4); }
+
+/* ---- Navigation ---- */
+
+.ws-card--navigation:not(.ws-card--horizontal) .ws-card__body {
+  align-items: center;
+  gap: var(--spacing-7);
+  padding: var(--spacing-9) var(--spacing-7) var(--spacing-7);
+  text-align: center;
+}
+
+.ws-card--navigation:not(.ws-card--horizontal) .ws-card__icon {
+  width: 64px;
+  height: 64px;
+  color: var(--color-gray-600);
+}
+
+.ws-card--navigation:not(.ws-card--horizontal) .ws-card__text { gap: var(--spacing-4); }
+
+.ws-card--navigation .ws-card__title {
+  font-size: var(--font-size-paragraph-large);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* Horizontal Navigation and Folder: one 64px row. */
+.ws-card--navigation.ws-card--horizontal .ws-card__body,
+.ws-card--folder .ws-card__body {
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: var(--spacing-3);
+  padding: var(--spacing-5);
+}
+
+.ws-card--navigation.ws-card--horizontal .ws-card__body { gap: var(--spacing-5); padding: var(--spacing-5); }
+
+.ws-card--navigation.ws-card--horizontal .ws-card__title,
+.ws-card--folder .ws-card__title {
+  font-size: var(--font-size-paragraph-base);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--font-line-height-body);
+}
+
+.ws-card--folder .ws-card__check { position: static; }
+
+/* ---- No background ---- */
+
+.ws-card--plain {
+  --card-bg: transparent;
+  --card-shadow: none;
+  overflow: visible;
+}
+
+.ws-card--plain .ws-card__media {
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--rounded-lg);
+}
+
+.ws-card--plain .ws-card__body { padding: var(--spacing-5) 0 0; }
+
+/* ---- Metrics Card (stat tile) ---- */
+
+.ws-card--metrics {
+  --card-border: var(--card-outline);
+  --card-shadow: none;
+  gap: var(--spacing-4);
+  padding: var(--spacing-5);
+}
+
+.ws-card__metric-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.ws-card--horizontal.ws-card--metrics { flex-direction: column; }
+.ws-card--horizontal .ws-card__metric-body { flex-direction: row; align-items: center; gap: var(--spacing-4); }
+
+.ws-card__metric {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-2);
+  margin: 0;
+  font-size: var(--font-size-paragraph-base);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--font-line-height-body);
+}
+
+.ws-card__metric-value {
+  font-size: var(--font-size-h4);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--font-line-height-heading);
+}
+
+.ws-card__trend {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  color: var(--color-success);
+  font-size: var(--font-size-paragraph-small);
+  line-height: var(--font-line-height-body);
+}
+
+.ws-card__trend .ws-icon { width: 16px; height: 16px; }
+.ws-card__trend--down { color: var(--color-danger); }
+.ws-card__trend--neutral { color: var(--color-gray-600); }
+
+.ws-card__metric-label {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  margin: 0;
+  font-size: var(--font-size-paragraph-x-small);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--font-line-height-body);
+  text-transform: uppercase;
+}
+
+.ws-card__metric-label .ws-icon { width: 16px; height: 16px; }

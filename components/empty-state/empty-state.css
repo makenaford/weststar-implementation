@@ -1,1 +1,100 @@
-/* TODO */
+/* Empty State — Figma: 💠 Clay Components / Empty State (326:1136), illustrations from _Illustration (325:1278)
+   Props → classes
+     Size             (Regular) | .ws-empty-state--sm
+     Variant          With Animation: centred, with .ws-empty-state__illustration and an outline button
+                      Without Animation: .ws-empty-state--plain (no illustration, left aligned, solid button)
+     Button           optional .ws-empty-state__actions holding a .ws-btn
+     _Illustration    <img class="ws-empty-state__illustration" src="illustrations/{satellite|spaceship|telescope}.svg" alt="">
+                      (files in assets/illustrations/, 250×250; drawn at 120×120 in the small size)
+   Figma note: "With Animation" has no prototype motion in the file; the illustration gets a slow float
+   here, switched off for prefers-reduced-motion. Without Animation only exists at Size=Small in Figma. */
+
+.ws-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-8);
+  max-width: 340px;
+  margin-inline: auto;
+  color: var(--color-gray-900);
+  text-align: center;
+}
+
+.ws-empty-state__illustration {
+  display: block;
+  width: 250px;
+  height: 250px;
+}
+
+.ws-empty-state__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-5);
+  width: 100%;
+}
+
+.ws-empty-state__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  width: 100%;
+}
+
+.ws-empty-state__title {
+  margin: 0;
+  font-size: var(--font-size-paragraph-large);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--font-line-height-body);
+}
+
+.ws-empty-state__description {
+  margin: 0;
+  font-size: var(--font-size-paragraph-base);
+  line-height: var(--font-line-height-body);
+}
+
+.ws-empty-state__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-3);
+}
+
+/* ---- Size ---- */
+
+.ws-empty-state--sm {
+  max-width: 268px;
+}
+
+.ws-empty-state--sm .ws-empty-state__illustration {
+  width: 120px;
+  height: 120px;
+}
+
+.ws-empty-state--sm .ws-empty-state__description {
+  font-size: var(--font-size-paragraph-small);
+}
+
+/* ---- Without Animation: plain, left aligned ---- */
+
+.ws-empty-state--plain {
+  align-items: flex-start;
+  margin-inline: 0;
+  text-align: left;
+}
+
+.ws-empty-state--plain .ws-empty-state__content { align-items: flex-start; }
+.ws-empty-state--plain .ws-empty-state__actions { justify-content: flex-start; }
+
+/* ---- With Animation ---- */
+
+@media (prefers-reduced-motion: no-preference) {
+  .ws-empty-state:not(.ws-empty-state--plain) .ws-empty-state__illustration {
+    animation: ws-empty-state-float 4s ease-in-out infinite;
+  }
+}
+
+@keyframes ws-empty-state-float {
+  50% { transform: translateY(-4px); }
+}

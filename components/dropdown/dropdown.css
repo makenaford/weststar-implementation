@@ -1,1 +1,241 @@
-/* TODO */
+/* Dropdown — Figma: 💠 Clay Components / Dropdown (349:68066) and _Item (342:41261)
+   Structure
+     .ws-dropdown                    wrapper (position: relative) around the trigger and the menu
+     .ws-dropdown__menu              the panel (white, 8px radius, Shadow/Dropdown); hidden via [hidden]
+       .ws-dropdown__menu--static    shows the menu in normal flow (docs and stories)
+       .ws-dropdown__menu--end       aligns the menu to the trigger's right edge
+   Dropdown props → classes
+     Variant    Simple      .ws-dropdown__list of Action items
+                Flexible    any content inside .ws-dropdown__content
+                Groups      .ws-dropdown__group-title + items, separated by .ws-dropdown__divider
+                Drilldown   Drilldown items; Drilldown Back → .ws-dropdown__back header
+                Search      .ws-dropdown__search above the list
+     Alert      .ws-dropdown__alert (info stripe at the top)
+     Footer     .ws-dropdown__footer (Caption → .ws-dropdown__caption, optional full-width .ws-btn)
+   _Item props → classes
+     Type       Action        <button class="ws-dropdown__item"> (Left Icon → .ws-icon, Right Icon → .ws-dropdown__item-end)
+                Checkbox      <label class="ws-dropdown__item ws-dropdown__item--check"><input type="checkbox">
+                Radio Button  <label class="ws-dropdown__item ws-dropdown__item--check"><input type="radio">
+                Drilldown     Action item + <svg class="ws-icon ws-dropdown__item-end"> angle-right-small
+                Group Title   .ws-dropdown__group-title
+                Divider       .ws-dropdown__divider (Item Divider)
+     State      :hover :focus-visible :active :disabled, or .is-hover .is-focus .is-active .is-disabled
+   Figma deviations (see README "Figma issues"):
+     - The Drilldown title bar uses the legacy Clay "secondary" colours (text Secondary, border Secondary L3)
+       and "14/Semibold" / "14/Regular" text styles; the footer caption too. Here: gray-600 / gray-200 and the
+       Paragraph/Small styles.
+     - The alert stripe has a 4px top radius inside an 8px menu; the menu clips it to 8px here.
+     - The item Focus Ring is inset (white + primary-l0 inside the item); the standard --ws-focus-ring is used.
+     - Checkbox and radio controls are native inputs with accent-color; swap in the Checkbox/Radio component markup
+       if preferred. */
+
+.ws-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.ws-dropdown__menu {
+  position: absolute;
+  top: calc(100% + var(--spacing-2));
+  left: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  width: 240px;
+  max-height: 480px;
+  border-radius: var(--rounded-lg);
+  background: var(--color-white);
+  box-shadow: var(--shadow-dropdown);
+  color: var(--text-body);
+  overflow: hidden;
+}
+
+.ws-dropdown__menu[hidden] { display: none; }
+
+.ws-dropdown__menu--end { left: auto; right: 0; }
+
+.ws-dropdown__menu--static {
+  position: static;
+  z-index: auto;
+}
+
+/* ---- Alert, search, back, footer ---- */
+
+.ws-dropdown__alert {
+  flex-shrink: 0;
+  padding: var(--spacing-3) var(--spacing-5);
+  border-bottom: 1px solid var(--color-info-l1);
+  background: var(--color-info-l2);
+  font-size: var(--font-size-paragraph-small);
+  line-height: var(--font-line-height-body);
+}
+
+.ws-dropdown__search {
+  position: relative;
+  flex-shrink: 0;
+  padding: var(--spacing-5) var(--spacing-5) var(--spacing-3);
+}
+
+.ws-dropdown__search-input {
+  width: 100%;
+  height: 37px;
+  padding: var(--spacing-3) 36px var(--spacing-3) var(--spacing-4);
+  border: 1px solid var(--color-gray-400);
+  border-radius: var(--rounded-lg);
+  background: var(--color-white);
+  color: var(--text-body);
+  font: inherit;
+  font-size: var(--font-size-paragraph-small);
+}
+
+.ws-dropdown__search-input::placeholder { color: var(--text-placeholder); }
+
+.ws-dropdown__search-input:focus-visible {
+  outline: none;
+  box-shadow: var(--ws-focus-ring);
+}
+
+.ws-dropdown__search > .ws-icon {
+  position: absolute;
+  top: calc(var(--spacing-5) + 10px);
+  right: calc(var(--spacing-5) + var(--spacing-4));
+  width: 16px;
+  height: 16px;
+  color: var(--color-gray-600);
+  pointer-events: none;
+}
+
+.ws-dropdown__back {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--spacing-3);
+  height: 40px;
+  margin-bottom: var(--spacing-3);
+  padding: var(--spacing-3) var(--spacing-3) 0;
+  border-bottom: 1px solid var(--color-gray-200);
+  color: var(--color-gray-600);
+  font-size: var(--font-size-paragraph-small);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--font-line-height-body);
+  text-transform: uppercase;
+}
+
+.ws-dropdown__footer {
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  gap: 10px;
+  padding: var(--spacing-3) var(--spacing-5) var(--spacing-5);
+}
+
+.ws-dropdown__caption {
+  margin: 0;
+  color: var(--color-gray-600);
+  font-size: var(--font-size-paragraph-small);
+  line-height: var(--font-line-height-body);
+}
+
+/* ---- List and items ---- */
+
+.ws-dropdown__list,
+.ws-dropdown__content {
+  margin: 0;
+  padding: var(--spacing-3);
+  overflow-y: auto;
+  list-style: none;
+}
+
+.ws-dropdown__item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  width: 100%;
+  padding: var(--spacing-4) var(--spacing-5) var(--spacing-4) var(--spacing-3);
+  border: 0;
+  border-radius: var(--rounded-lg);
+  background: var(--color-white);
+  color: var(--text-body);
+  font: inherit;
+  font-size: var(--font-size-paragraph-base);
+  line-height: var(--font-line-height-body);
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--ws-transition), box-shadow var(--ws-transition);
+}
+
+.ws-dropdown__item > .ws-icon {
+  width: 16px;
+  height: 16px;
+  color: var(--color-gray-600);
+}
+
+.ws-dropdown__item-label {
+  flex: 1;
+  min-width: 0;
+}
+
+.ws-dropdown__item > .ws-dropdown__item-end { margin-left: auto; }
+
+.ws-dropdown__item:hover,
+.ws-dropdown__item.is-hover,
+.ws-dropdown__item:active,
+.ws-dropdown__item.is-active {
+  background: var(--color-primary-l3);
+}
+
+.ws-dropdown__item:focus-visible,
+.ws-dropdown__item.is-focus,
+.ws-dropdown__item--check:has(input:focus-visible) {
+  outline: none;
+  background: var(--color-primary-l3);
+  box-shadow: var(--ws-focus-ring);
+}
+
+.ws-dropdown__item:disabled,
+.ws-dropdown__item.is-disabled,
+.ws-dropdown__item[aria-disabled='true'],
+.ws-dropdown__item--check:has(input:disabled) {
+  background: var(--color-white);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.ws-dropdown__item:disabled > *,
+.ws-dropdown__item.is-disabled > *,
+.ws-dropdown__item[aria-disabled='true'] > *,
+.ws-dropdown__item--check:has(input:disabled) > * {
+  opacity: var(--translucent-1);
+}
+
+/* Checkbox and radio items: Active means checked, on a white background. */
+.ws-dropdown__item--check:active,
+.ws-dropdown__item--check.is-active { background: var(--color-white); }
+
+.ws-dropdown__item--check input {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--color-primary);
+  cursor: inherit;
+}
+
+.ws-dropdown__item--check input:focus-visible { outline: none; }
+
+.ws-dropdown__group-title {
+  margin: 0;
+  padding: var(--spacing-4) var(--spacing-5) var(--spacing-4) var(--spacing-3);
+  font-size: var(--font-size-paragraph-x-small);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--font-line-height-body);
+  text-transform: uppercase;
+}
+
+.ws-dropdown__divider {
+  height: 0;
+  margin: var(--spacing-2) calc(var(--spacing-3) * -1);
+  border: 0;
+  border-top: 1px solid var(--color-gray-300);
+}

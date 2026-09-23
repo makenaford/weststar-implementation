@@ -1,1 +1,76 @@
-/* TODO */
+/* Link — Figma: 💠 Clay Components / Link (6681:11885)
+   Props → classes
+     Size         (Base) | --sm | --lg
+     State        :hover :focus-visible :active, .is-disabled / [aria-disabled='true'],
+                  or .is-hover .is-focus .is-active .is-disabled for static display
+     Inverted     --inverted (for dark backgrounds)
+     Underlined   --underlined (always underlined, not just on hover/active)
+     Left/Right Icon   <svg class="ws-icon"> before/after the text (16px)
+   Figma has no focus state; focus uses the standard focus ring with the hover colour. */
+
+.ws-link {
+  --link-color: var(--color-primary);
+  --link-color-hover: var(--color-primary-d1);
+  --link-color-active: var(--color-primary-d2);
+  --link-color-disabled: var(--link-color);
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  border-radius: var(--rounded-md);
+  color: var(--link-color);
+  font-size: var(--font-size-paragraph-base);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--font-line-height-body);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color var(--ws-transition), box-shadow var(--ws-transition);
+}
+
+.ws-link .ws-icon { width: 16px; height: 16px; }
+
+.ws-link:hover,
+.ws-link.is-hover {
+  color: var(--link-color-hover);
+  text-decoration: underline;
+}
+
+.ws-link:focus-visible,
+.ws-link.is-focus {
+  outline: none;
+  color: var(--link-color-hover);
+  box-shadow: var(--ws-focus-ring);
+}
+
+.ws-link:active,
+.ws-link.is-active {
+  color: var(--link-color-active);
+  text-decoration: underline;
+}
+
+.ws-link.is-disabled,
+.ws-link[aria-disabled='true'] {
+  color: var(--link-color-disabled);
+  text-decoration: none;
+  box-shadow: none;
+  opacity: var(--translucent-1);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.ws-link--underlined,
+.ws-link--underlined.is-disabled { text-decoration: underline; }
+
+/* ---- Inverted ---- */
+
+.ws-link--inverted {
+  --link-color: var(--color-gray-200);
+  --link-color-hover: var(--color-white);
+  --link-color-active: var(--color-white);
+  --link-color-disabled: var(--color-gray-400);
+}
+
+/* ---- Sizes ---- */
+
+.ws-link--sm { font-size: var(--font-size-paragraph-small); }
+.ws-link--lg { font-size: var(--font-size-paragraph-large); }
