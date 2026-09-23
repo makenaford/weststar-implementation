@@ -20,3 +20,7 @@ export const matrix = (cols, rows, { dark = false } = {}) => `
 
 export const STATES = ['default', 'hover', 'focus', 'active', 'disabled'];
 export const stateClass = (s) => (s === 'default' ? '' : `is-${s}`);
+
+/** Icon that exists in Figma but not in the Clay sprite (assets/icons-extra), drawn as a currentColor mask. */
+export const maskIcon = (name, cls = '') =>
+  `<span class="ws-icon ws-icon-mask ${cls}" style="--icon: url(icons-extra/${name}.svg)" aria-hidden="true"></span>`;

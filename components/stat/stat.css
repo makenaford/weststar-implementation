@@ -1,0 +1,72 @@
+/* Stat — Figma: "stat" tile used on the Customer Dashboard (17986:1681, main component 16084:126794)
+   A compact KPI tile: small-caps label with a 16px icon, then a large value.
+   Markup:
+     <div class="ws-stat">
+       <div class="ws-stat__header"><span class="ws-stat__label">Active projects</span><svg class="ws-icon ws-stat__icon ws-stat__icon--accent">…</svg></div>
+       <p class="ws-stat__value">3</p>
+       <p class="ws-stat__meta">69 days remaining</p>      (optional; hidden in the Figma instances)
+     </div>
+   Icon color   .ws-stat__icon--accent (chart blue) | --info | --success | --warning | --danger | --orange | (default gray-600)
+   Figma icons are colored with untokenized original-palette fills (#006EFF, #B45309, #F97316, #0369A1);
+   they map to --color-blue, --color-warning, --color-orange-l1 and --color-info. */
+
+.ws-stat {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--spacing-2);
+  min-width: 0;
+  padding: var(--spacing-4) var(--spacing-5);
+  border: 1px solid var(--card-outline);
+  border-radius: var(--rounded-lg);
+  background: var(--card-background-default);
+}
+
+.ws-stat__header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ws-stat__label {
+  flex: 1 1 auto;
+  min-width: 0;
+  color: var(--color-gray-600);
+  font-size: var(--font-size-paragraph-x-small);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--font-line-height-body);
+  text-transform: uppercase;
+}
+
+.ws-stat__icon { width: 16px; height: 16px; color: var(--color-gray-600); }
+.ws-stat__icon--accent { color: var(--color-blue); }
+.ws-stat__icon--info { color: var(--color-info); }
+.ws-stat__icon--success { color: var(--color-success); }
+.ws-stat__icon--warning { color: var(--color-warning); }
+.ws-stat__icon--danger { color: var(--color-danger); }
+.ws-stat__icon--orange { color: var(--color-orange-l1); }
+
+.ws-stat__value {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--font-line-height-heading);
+  white-space: nowrap;
+}
+
+.ws-stat__meta {
+  margin: 0;
+  color: var(--color-gray-600);
+  font-size: var(--font-size-paragraph-x-small);
+  line-height: var(--font-line-height-body);
+}
+
+/* Row of equal-width stats (Figma: 16px gap, or 8px inside a panel) */
+.ws-stat-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--spacing-5);
+}
+
+.ws-stat-group--tight { gap: var(--spacing-3); }

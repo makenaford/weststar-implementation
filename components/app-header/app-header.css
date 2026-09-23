@@ -1,0 +1,96 @@
+/* App header — Figma: "Primary Nav" on the Customer Dashboard (17986:1657)
+   The portal's top bar: logo, primary navigation (Navigation Bar, Bar style, inverted), notifications and avatar.
+   Markup:
+     <header class="ws-app-header">
+       <a class="ws-app-header__logo" href="…"><span class="ws-logo">…6 logo vectors…</span></a>
+       <nav class="ws-navbar ws-navbar--inverted ws-app-header__nav">…</nav>
+       <a class="ws-navbar__item ws-app-header__notifications" href="…">Notifications<span class="ws-app-header__dot"></span></a>
+       <img class="ws-app-header__avatar" src="…" alt="John Carter">
+     </header>
+   Figma deviation: the Figma bar is gray-900 with gray-200 items. The portal decision is a primary-d1 bar with
+   primary-l2 items (Navigation Bar, Inverted), so the header uses those. */
+
+.ws-app-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  min-height: 80px;
+  padding: var(--spacing-5) var(--spacing-7);
+  padding-top: max(var(--spacing-5), env(safe-area-inset-top));
+  border-bottom: 1px solid var(--color-primary);
+  background: var(--color-primary-d1);
+}
+
+.ws-app-header__logo {
+  display: inline-flex;
+  flex-shrink: 0;
+  margin-right: auto;
+  border-radius: var(--rounded-md);
+}
+
+.ws-app-header__logo:focus-visible { outline: none; box-shadow: var(--ws-focus-ring); }
+
+/* The nav inherits the header background; the header draws the bottom border. */
+.ws-app-header .ws-navbar {
+  --nav-bg: transparent;
+  --nav-border: transparent;
+  gap: 0;
+  min-height: 48px;
+  border-bottom: 0;
+}
+
+.ws-app-header__utility {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+
+.ws-app-header__notifications { position: relative; }
+
+.ws-app-header__dot {
+  position: absolute;
+  top: 13px;
+  right: 14px;
+  width: 6px;
+  height: 6px;
+}
+
+.ws-app-header__avatar {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--rounded-full);
+  object-fit: cover;
+}
+
+.ws-app-header__menu { display: none; }
+
+/* WSA logo: six vectors from Figma (assets/logo/v1–v6.svg), positioned as in the source frame (446.4 × 138.9). */
+.ws-logo {
+  position: relative;
+  display: block;
+  height: 48px;
+  aspect-ratio: 446.4 / 138.9;
+}
+
+.ws-logo img { position: absolute; display: block; max-width: none; }
+.ws-logo img:nth-child(1) { top: 35.06%; left: -0.02%; width: 75.94%; height: 36.86%; }
+.ws-logo img:nth-child(2) { top: 34.99%; left: 13.84%; width: 82.62%; height: 36.43%; }
+.ws-logo img:nth-child(3) { top: 20.23%; left: 39.56%; width: 56.3%; height: 79.77%; }
+.ws-logo img:nth-child(4) { top: 35.93%; left: 98.54%; width: 0.86%; height: 3.88%; }
+.ws-logo img:nth-child(5) { top: 34.41%; left: 97.92%; width: 2.1%; height: 6.77%; }
+.ws-logo img:nth-child(6) { top: 0%; left: 60.08%; width: 12.16%; height: 24.98%; }
+
+@media (max-width: 1100px) {
+  .ws-app-header { flex-wrap: wrap; padding-inline: var(--spacing-5); }
+  .ws-app-header__utility { order: 2; }
+  .ws-app-header .ws-navbar:not(.ws-app-header__utility) { order: 3; width: 100%; overflow-x: auto; scrollbar-width: none; }
+}
+
+@media (max-width: 480px) {
+  .ws-logo { height: 36px; }
+  .ws-app-header__notifications { padding-inline: var(--spacing-3); }
+}

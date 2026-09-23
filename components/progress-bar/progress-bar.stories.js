@@ -56,3 +56,11 @@ export const InContext = {
   ${progressBar({ state: 'ws-progress--completed', label: 'Work order progress' })}
 </div>`,
 };
+
+export const Segmented = {
+  name: 'Segmented (discrepancies meter)',
+  render: () => `<div class="sb-stack">${[0, 20, 45, 80, 100].map((pct) => {
+    const done = Math.floor(pct / 20);
+    return `<span class="ws-progress-steps" role="meter" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100" aria-label="Discrepancies resolved">${Array.from({ length: 5 }, (_, i) => `<span class="ws-progress-steps__step${i < done ? ' is-done' : i === done && pct < 100 ? ' is-current' : ''}"></span>`).join('')}<span class="ws-progress-steps__value">${pct}%</span></span>`;
+  }).join('')}</div>`,
+};

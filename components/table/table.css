@@ -233,3 +233,34 @@
   border-radius: var(--rounded-sm);
   box-shadow: var(--ws-focus-ring);
 }
+
+/* ---- Condensed header (Figma _Cell Header, Condensed=Yes: Paragraph / Small Caps (Tiny) / Semibold on Table/Stripe) ---- */
+
+.ws-table--condensed thead th,
+.ws-table tfoot :is(th, td) {
+  --table-row-bg: var(--table-stripe);
+  font-size: var(--font-size-paragraph-x-small);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+}
+
+/* ---- Footer / total row (Customer Dashboard financial table, 17988:97394) ---- */
+
+.ws-table tfoot :is(th, td) {
+  height: 36px;
+  border-bottom: 0;
+  border-top: 1px solid var(--table-outline);
+  color: var(--text-secondary);
+}
+
+/* ---- Flush: no outer border or radius, for a table inside a card or panel ---- */
+
+.ws-table--flush {
+  border: 0;
+  border-radius: 0;
+}
+
+.ws-table--flush tbody :is(th, td) { border-bottom-color: var(--table-outline); }
+
+/* Numeric columns */
+.ws-table .ws-table__num { text-align: right; white-space: nowrap; }

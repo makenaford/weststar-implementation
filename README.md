@@ -9,6 +9,7 @@ npm install
 npm run storybook        # http://localhost:6010
 npm run tokens           # rebuild css/tokens.css after editing tokens/*.json
 npm run build-storybook  # static build in storybook-static/
+npm run dev              # portal prototype at http://localhost:6020/prototype/
 ```
 
 ## Use it in a page
@@ -28,7 +29,7 @@ Copy `assets/icons.svg` (and `assets/illustrations/` if you use empty states) ne
 
 **Foundations:** color (154 tokens), chart color (10 families), semantic color (Figma paint styles), type ramp (responsive: mobile, tablet, desktop), spacing, radius, shadows and 300+ Clay icons.
 
-**Components (24):**
+**Components (32):**
 
 | Group | Components |
 |---|---|
@@ -37,9 +38,20 @@ Copy `assets/icons.svg` (and `assets/illustrations/` if you use empty states) ne
 | Feedback and overlays | alert and toast, tooltip, popover, modal, empty state |
 | Forms | input (text, text area, select, input group), checkbox, radio, toggle, search |
 | Navigation | navigation bar, vertical nav, tabs, breadcrumb, pagination |
-| Data | table, card (including the metrics stat tile), dropdown |
+| Data | table, card (including the metrics stat tile), dropdown, stat, data point, project summary |
+| Page layout | app header, page header, panel, activity item, segmented control |
 
 Each component has its own folder in `components/`, with a CSS file, stories, and JS where it needs behavior. Every CSS file starts with a comment giving the Figma component and node ID it came from, and how the Figma props map to classes.
+
+## Portal prototype
+
+`prototype/` holds the portal screens, built only from the design system: plain HTML, one page-layout stylesheet (`prototype.css`) and a small script per page for mock data and behavior.
+
+| Page | File | Figma |
+|---|---|---|
+| Home (customer landing page) | `prototype/index.html`, `home.js` | Customer Dashboard, 17986:1656 |
+
+Run `npm run dev` and open http://localhost:6020/prototype/. The page needs a server because it loads component JS as ES modules.
 
 ## Colors differ from Figma
 
@@ -89,6 +101,15 @@ These are places where the Figma components are inconsistent or broken. The code
 - **Modal:** the header and footer carry hidden borders and 4px radii that don't match the 16px modal. There's no shadow effect, so code adds `shadow-modal`. The overlay is gray-700 at 80% layer opacity.
 - **Empty state:** "With Animation" has no motion defined, so code adds a subtle float (off for reduced motion). "Without Animation" exists only at the small size. Each illustration is about 40 masked fragments; they're exported as one SVG each.
 - **Alert:** the close button is absolutely positioned in the Vertical variant. Code uses flexbox.
+
+### Customer landing page (17986:1656)
+- **Copy:** placeholder text ("Work Order #", "(Company Name)", "Status?", "This is an example of a line item") is replaced with realistic mock data, and headings are in sentence case. "Paid to date" shows $678,607 instead of the typo "$678,6078".
+- **Top bar:** it's gray-900 in Figma. The prototype uses the portal's primary-d1 nav (Navigation Bar, Inverted). The nav items for pages that aren't built yet are shown disabled.
+- **Filter:** the selected segmented item has a raw white fill, a raw black border and square corners on a rounded track. Code uses white, a gray-900 border and full rounding.
+- **Discrepancy meter:** it uses success at 50% alpha and a raw #D9D9D9. Code uses `success-l1` and `gray-300`.
+- **Icons:** the stat and alert icons are filled with original-palette hex values. Code colors them with tokens. `payments`, `draft` and `timelapse` aren't in the Clay sprite, so they're exported from Figma to `assets/icons-extra/` and drawn as masks.
+- **Financial panel:** it uses a gray-300 border and 8px gap where the other panels use gray-200 and 16px. Code uses one panel style throughout.
+- **Section titles:** they're 20px, which is off the type scale.
 
 ## Contributing
 

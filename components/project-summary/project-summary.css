@@ -1,0 +1,150 @@
+/* Project summary — Figma: project rows on the Customer Dashboard
+     Project List row       18004:106376 (large image, labels, data points underneath)
+     Financial project row  17988:97315 / 17988:97268 (small image, figures on the right, expandable line items)
+   Markup (list row):
+     <article class="ws-project">
+       <img class="ws-project__image" src="…" alt="">
+       <div class="ws-project__body">
+         <div class="ws-project__info">
+           <p class="ws-project__meta">RN: CL 10269 · SN: GXRS-9368</p>
+           <div class="ws-project__heading">
+             <h3 class="ws-project__title"><span class="ws-project__wo">WO: <b>CL 10269</b></span> · Gainesway Aviation</h3>
+             <span class="ws-label …">On track</span>
+           </div>
+         </div>
+         <dl class="ws-data-points">…data points…</dl>
+       </div>
+     </article>
+   Compact   .ws-project--compact: small image, title above the meta line, figures and status on the right
+   Expandable  <details class="ws-project-disclosure"><summary class="ws-project ws-project--compact">…
+               <svg class="ws-icon ws-project__toggle">caret-bottom</svg></summary> …table… </details>
+   Figma deviations: the title is 20px (off the type scale), kept as a literal. The expanded financial card has a
+   gray-200 border while collapsed ones are gray-300; kept as designed. */
+
+.ws-project {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  min-width: 0;
+  padding: var(--spacing-5);
+  border: 1px solid var(--table-outline);
+  border-radius: var(--rounded-lg);
+  background: var(--color-white);
+  color: var(--text-primary);
+}
+
+.ws-project__image {
+  flex-shrink: 0;
+  width: 165px;
+  height: 93px;
+  border-radius: var(--rounded-lg);
+  object-fit: cover;
+}
+
+.ws-project__body {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--spacing-5);
+  min-width: 0;
+}
+
+.ws-project__info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.ws-project__meta {
+  margin: 0;
+  color: var(--text-placeholder);
+  font-size: var(--font-size-paragraph-x-small);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--font-line-height-body);
+  text-transform: uppercase;
+}
+
+.ws-project__heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-2) var(--spacing-3);
+}
+
+.ws-project__title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: var(--font-weight-medium);
+  line-height: var(--font-line-height-body);
+}
+
+.ws-project__wo { font-weight: var(--font-weight-semibold); }
+.ws-project__wo b { font-weight: var(--font-weight-bold); }
+
+.ws-project__labels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-3);
+}
+
+.ws-project__toggle {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  color: var(--text-primary);
+  transition: transform var(--ws-transition);
+}
+
+/* ---- Compact (financial) ---- */
+
+.ws-project--compact .ws-project__image { width: 83px; height: 47px; }
+
+.ws-project--compact .ws-project__body {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-3) var(--spacing-7);
+}
+
+.ws-project--compact .ws-project__info {
+  flex: 1 1 280px;
+  flex-direction: column-reverse;
+}
+
+.ws-project--compact .ws-data-points { gap: var(--spacing-3) var(--spacing-6); }
+
+/* ---- Expandable ---- */
+
+.ws-project-disclosure {
+  overflow: hidden;
+  border: 1px solid var(--table-outline);
+  border-radius: var(--rounded-lg);
+  background: var(--color-white);
+}
+
+.ws-project-disclosure[open] { border-color: var(--card-outline); }
+
+.ws-project-disclosure > summary {
+  border: 0;
+  border-radius: 0;
+  cursor: pointer;
+  list-style: none;
+}
+
+.ws-project-disclosure > summary::-webkit-details-marker { display: none; }
+
+.ws-project-disclosure > summary:hover { background: var(--color-gray-100); }
+
+.ws-project-disclosure > summary:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 2px var(--color-focus-outer);
+}
+
+.ws-project-disclosure[open] .ws-project__toggle { transform: rotate(180deg); }
+
+.ws-project-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}

@@ -1,0 +1,144 @@
+/* Activity item — Figma: "action" rows in Project Alerts (17986:1924) and Recent Activity (17986:2090, main 16040:109934)
+   A bordered row: optional status icon disc, text block, optional trailing action.
+   Markup:
+     <article class="ws-activity">
+       <span class="ws-activity__icon ws-activity__icon--warning"><svg class="ws-icon">…</svg></span>   (optional)
+       <div class="ws-activity__body">
+         <div class="ws-activity__top"><p class="ws-activity__eyebrow">Work order WO-10269</p><time class="ws-activity__date">05/23/25</time></div>
+         <p class="ws-activity__title"><strong>Pending squawk</strong> 5.1: RH NLG door bonding wire is fraying. <span class="ws-label …">Airworthy</span></p>
+         <ul class="ws-activity__meta"><li>Schedule impact: <b>2 days</b></li>…</ul>
+       </div>
+       <div class="ws-activity__action"><button class="ws-btn ws-btn--outline-secondary ws-btn--xs ws-btn--icon">…ellipsis-v</button></div>
+     </article>
+   Icon disc    .ws-activity__icon--warning | --danger | --info | --success (status-l2 disc, status-colored icon)
+   Simple       .ws-activity--simple: Recent Activity style (14px semibold eyebrow, 14px text, 12px date line)
+   Interactive  a.ws-activity or .ws-activity--interactive gets hover/focus
+   Figma deviation: the icons are original-palette fills (#B45309, #B91C1C); they use the status tokens here. */
+
+.ws-activity {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  padding: var(--spacing-4);
+  border: 1px solid var(--card-outline);
+  border-radius: var(--rounded-lg);
+  background: var(--card-background-default);
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: background-color var(--ws-transition), box-shadow var(--ws-transition);
+}
+
+a.ws-activity:hover,
+.ws-activity--interactive:hover,
+.ws-activity.is-hover {
+  background: var(--color-gray-100);
+}
+
+a.ws-activity:focus-visible,
+.ws-activity--interactive:focus-visible,
+.ws-activity.is-focus {
+  outline: none;
+  box-shadow: var(--ws-focus-ring);
+}
+
+.ws-activity__icon {
+  --activity-tint: var(--color-gray-200);
+  --activity-color: var(--color-gray-700);
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--rounded-full);
+  background: var(--activity-tint);
+  color: var(--activity-color);
+}
+
+.ws-activity__icon .ws-icon { width: 20px; height: 20px; }
+.ws-activity__icon--warning { --activity-tint: var(--color-warning-l2); --activity-color: var(--color-warning); }
+.ws-activity__icon--danger { --activity-tint: var(--color-danger-l2); --activity-color: var(--color-danger); }
+.ws-activity__icon--info { --activity-tint: var(--color-info-l2); --activity-color: var(--color-info); }
+.ws-activity__icon--success { --activity-tint: var(--color-success-l2); --activity-color: var(--color-success); }
+
+.ws-activity__body {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  min-width: 0;
+}
+
+.ws-activity__top {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-2);
+}
+
+.ws-activity__eyebrow {
+  flex: 1 1 auto;
+  margin: 0;
+  font-size: var(--font-size-paragraph-x-small);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--font-line-height-body);
+}
+
+.ws-activity__date {
+  flex-shrink: 0;
+  padding: var(--spacing-1) 0;
+  color: var(--color-gray-700);
+  font-size: var(--font-size-paragraph-x-small);
+  line-height: var(--font-line-height-body);
+}
+
+.ws-activity__title {
+  margin: 0;
+  font-size: var(--font-size-paragraph-small);
+  line-height: var(--font-line-height-body);
+}
+
+.ws-activity__title strong { font-weight: var(--font-weight-semibold); }
+
+.ws-activity__title .ws-label {
+  margin-left: var(--spacing-2);
+  vertical-align: 1px;
+}
+
+.ws-activity__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--spacing-5);
+  margin: 0;
+  padding: 0;
+  color: var(--color-gray-700);
+  font-size: var(--font-size-paragraph-x-small);
+  line-height: var(--font-line-height-body);
+  list-style: none;
+}
+
+.ws-activity__meta li { padding: var(--spacing-1) 0; }
+.ws-activity__meta b { font-weight: var(--font-weight-semibold); }
+
+.ws-activity__action {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+
+/* Recent Activity style */
+.ws-activity--simple .ws-activity__eyebrow { font-size: var(--font-size-paragraph-small); }
+.ws-activity--simple .ws-activity__body { gap: var(--spacing-2); }
+.ws-activity--simple .ws-activity__text-group { display: flex; flex-direction: column; }
+.ws-activity--simple .ws-activity__date { padding: 0; }
+
+.ws-activity-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ws-activity-list--loose { gap: var(--spacing-5); }

@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Home · West Star Aviation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/index.css" />
+  <link rel="stylesheet" href="prototype.css" />
+</head>
+<body>
+  <!-- Figma: Customer Dashboard (17986:1656) -->
+  <header class="ws-app-header">
+    <a class="ws-app-header__logo" href="index.html" aria-label="West Star Aviation home">
+      <span class="ws-logo" aria-hidden="true">
+        <img src="../assets/logo/v1.svg" alt="" /><img src="../assets/logo/v2.svg" alt="" /><img src="../assets/logo/v3.svg" alt="" /><img src="../assets/logo/v4.svg" alt="" /><img src="../assets/logo/v5.svg" alt="" /><img src="../assets/logo/v6.svg" alt="" />
+      </span>
+    </a>
+    <nav class="ws-navbar ws-navbar--inverted" aria-label="Main">
+      <a class="ws-navbar__item" href="index.html" aria-current="page">Home</a>
+      <a class="ws-navbar__item" href="#" aria-disabled="true">Projects</a>
+      <a class="ws-navbar__item" href="#" aria-disabled="true">Fleet</a>
+      <a class="ws-navbar__item" href="#" aria-disabled="true">Messages</a>
+      <a class="ws-navbar__item" href="#" aria-disabled="true">Billing</a>
+      <a class="ws-navbar__item" href="#" aria-disabled="true">Documents</a>
+    </nav>
+    <div class="ws-app-header__utility ws-navbar ws-navbar--inverted">
+      <a class="ws-navbar__item ws-app-header__notifications" href="#" aria-disabled="true">
+        Notifications<img class="ws-app-header__dot" src="../assets/icons-extra/notification-dot.svg" alt="" /><span class="ws-sr-only"> (unread)</span>
+      </a>
+      <img class="ws-app-header__avatar" src="../assets/images/avatar-john.png" alt="John Carter" />
+    </div>
+  </header>
+
+  <main class="page" id="main">
+    <!-- Banner (17986:1677) -->
+    <header class="ws-page-header">
+      <div class="ws-page-header__text">
+        <h1 class="ws-page-header__title">Welcome back, John <span class="ws-page-header__context">(Non Stop Holdings)</span></h1>
+        <p class="ws-page-header__subtitle" id="sync-status">Synced 2 min ago from Corridor</p>
+      </div>
+      <div class="ws-page-header__actions">
+        <button type="button" class="ws-btn ws-btn--outline-primary ws-btn--sm" id="refresh">
+          <svg class="ws-icon" aria-hidden="true"><use href="../assets/icons.svg#reload"></use></svg>Refresh
+        </button>
+      </div>
+    </header>
+
+    <div class="page__sections">
+      <!-- KPI stats (17986:1680) -->
+      <section class="ws-stat-group" aria-label="Summary">
+        <div class="ws-stat">
+          <div class="ws-stat__header"><span class="ws-stat__label">Active projects</span><svg class="ws-icon ws-stat__icon ws-stat__icon--accent" aria-hidden="true"><use href="../assets/icons.svg#cog"></use></svg></div>
+          <p class="ws-stat__value">3</p>
+        </div>
+        <div class="ws-stat">
+          <div class="ws-stat__header"><span class="ws-stat__label">Upcoming projects</span><svg class="ws-icon ws-stat__icon ws-stat__icon--accent" aria-hidden="true"><use href="../assets/icons.svg#time"></use></svg></div>
+          <p class="ws-stat__value">14</p>
+        </div>
+        <div class="ws-stat">
+          <div class="ws-stat__header"><span class="ws-stat__label">Pending squawks</span><svg class="ws-icon ws-stat__icon ws-stat__icon--warning" aria-hidden="true"><use href="../assets/icons.svg#warning"></use></svg></div>
+          <p class="ws-stat__value">7</p>
+        </div>
+        <div class="ws-stat">
+          <div class="ws-stat__header"><span class="ws-stat__label">Outstanding balance</span><span class="ws-icon ws-icon-mask ws-stat__icon ws-stat__icon--orange" style="--icon: url(../assets/icons-extra/payments.svg)" aria-hidden="true"></span></div>
+          <p class="ws-stat__value">$123,945</p>
+        </div>
+        <div class="ws-stat">
+          <div class="ws-stat__header"><span class="ws-stat__label">Paid to date</span><span class="ws-icon ws-icon-mask ws-stat__icon ws-stat__icon--info" style="--icon: url(../assets/icons-extra/draft.svg)" aria-hidden="true"></span></div>
+          <p class="ws-stat__value">$456,967</p>
+        </div>
+      </section>
+
+      <!-- Project list (17988:97671) -->
+      <section class="ws-panel" aria-labelledby="projects-title">
+        <header class="ws-panel__header">
+          <h2 class="ws-panel__title" id="projects-title">Project list</h2>
+          <span class="ws-badge ws-badge--info ws-badge--translucent ws-panel__count" id="project-count">6</span>
+          <div class="ws-panel__actions">
+            <div class="ws-search home-search" role="search">
+              <input type="search" class="ws-search__input" id="project-search" placeholder="Search projects" aria-label="Search projects" />
+              <button type="button" class="ws-search__clear" aria-label="Clear search"><svg class="ws-icon" aria-hidden="true"><use href="../assets/icons.svg#times-circle"></use></svg></button>
+              <button type="button" class="ws-search__submit" aria-label="Search"><svg class="ws-icon" aria-hidden="true"><use href="../assets/icons.svg#search"></use></svg></button>
+            </div>
+            <button type="button" class="ws-btn ws-btn--outline-primary ws-btn--sm">
+              <svg class="ws-icon" aria-hidden="true"><use href="../assets/icons.svg#filter"></use></svg>Filter
+            </button>
+          </div>
+        </header>
+        <div class="ws-segmented" role="group" aria-label="Filter projects by phase" id="project-filter">
+          <button type="button" class="ws-segmented__item" aria-pressed="true" data-value="all">All</button>
+          <button type="button" class="ws-segmented__item" aria-pressed="false" data-value="prearrival">Prearrival</button>
+          <button type="button" class="ws-segmented__item" aria-pressed="false" data-value="in-work">In work (3)</button>
+          <button type="button" class="ws-segmented__item" aria-pressed="false" data-value="completed">Completed</button>
+        </div>
+        <div class="ws-panel__well" id="project-list" aria-live="polite"></div>
+      </section>
+
+      <!-- Alerts (17986:1916) and recent activity (17986:2085) -->
+      <div class="home-split">
+        <section class="ws-panel" aria-labelledby="alerts-title">
+          <header class="ws-panel__header">
+            <h2 class="ws-panel__title" id="alerts-title">Project alerts</h2>
+            <span class="ws-badge ws-badge--danger ws-badge--translucent ws-panel__count">12</span>
+            <div class="ws-panel__actions">
+              <a class="ws-link" href="#">View all<svg class="ws-icon" aria-hidden="true"><use href="../assets/icons.svg#order-arrow-right"></use></svg></a>
+            </div>
+          </header>
+          <ul class="ws-activity-list" id="alert-list"></ul>
+        </section>
+
+        <section class="ws-panel" aria-labelledby="activity-title">
+          <header class="ws-panel__header">
+            <h2 class="ws-panel__title" id="activity-title">Recent activity</h2>
+            <div class="ws-panel__actions">
+              <a class="ws-link" href="#">View all<svg class="ws-icon" aria-hidden="true"><use href="../assets/icons.svg#order-arrow-right"></use></svg></a>
+            </div>
+          </header>
+          <ul class="ws-activity-list ws-activity-list--loose" id="activity-list"></ul>
+        </section>
+      </div>
+
+      <!-- Financial information (17988:97261) -->
+      <section class="ws-panel" aria-labelledby="finance-title">
+        <header class="ws-panel__header">
+          <h2 class="ws-panel__title" id="finance-title">Financial information</h2>
+          <div class="ws-panel__actions">
+            <a class="ws-link" href="#">View all<svg class="ws-icon" aria-hidden="true"><use href="../assets/icons.svg#order-arrow-right"></use></svg></a>
+          </div>
+        </header>
+        <div class="ws-stat-group ws-stat-group--tight">
+          <div class="ws-stat">
+            <div class="ws-stat__header"><span class="ws-stat__label">Open invoices</span><span class="ws-icon ws-icon-mask ws-stat__icon ws-stat__icon--orange" style="--icon: url(../assets/icons-extra/payments.svg)" aria-hidden="true"></span></div>
+            <p class="ws-stat__value">4</p>
+          </div>
+          <div class="ws-stat">
+            <div class="ws-stat__header"><span class="ws-stat__label">Paid to date</span><span class="ws-icon ws-icon-mask ws-stat__icon ws-stat__icon--orange" style="--icon: url(../assets/icons-extra/payments.svg)" aria-hidden="true"></span></div>
+            <p class="ws-stat__value">$678,607</p>
+          </div>
+          <div class="ws-stat">
+            <div class="ws-stat__header"><span class="ws-stat__label">Outstanding balance</span><span class="ws-icon ws-icon-mask ws-stat__icon ws-stat__icon--orange" style="--icon: url(../assets/icons-extra/payments.svg)" aria-hidden="true"></span></div>
+            <p class="ws-stat__value">$123,945</p>
+          </div>
+        </div>
+        <div class="ws-project-list" id="finance-list"></div>
+      </section>
+    </div>
+  </main>
+
+  <script type="module" src="home.js"></script>
+</body>
+</html>

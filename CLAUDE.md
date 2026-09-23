@@ -73,6 +73,16 @@ These names match the portal prototype's `--color-*` variables exactly: all 154 
 - Run `npm run storybook`, open `http://localhost:6010/iframe.html?id=components-<name>--<story>`, and screenshot it. Compare against the Figma screenshot of the same variants.
 - Every story must render without console errors.
 
-## Next: the portal prototype
+## The portal prototype
 
 Build the portal pages and screens from these components. Use the existing prototype (`../wsa-portal-prototype/prototype/index.html` and its `CLAUDE.md`) as the reference for content, page structure and interactions: all projects, overview, quote, squawks, activity, finances, documents, messages, timeline and notifications. The Figma pages under PLANNING (Customer Landing Page, PM Dashboard, Project Specific Dashboard, Fleet Dashboard, Squawk Management, All Projects) and IN DESIGN (Profile, Theme, Communication Preferences) hold the newer screen designs. Compose pages from `ws-*` components. Add page-level layout CSS only where no component covers it, and add a new component (with stories) rather than one-off styles when a pattern repeats.
+
+### How the prototype is organized
+
+- `prototype/<page>.html`: one file per screen. It links `../css/index.css` and `prototype.css`, and references assets as `../assets/...` and icons as `../assets/icons.svg#name`.
+- `prototype/prototype.css`: page layout only (grids, gaps, breakpoints). If a style is visual rather than about placement, it belongs in a component.
+- `prototype/<page>.js`: an ES module holding the page's mock data, the templates for repeated rows, and wiring for component JS (`initSegmented`, `initDropdown` and so on).
+- Run `npm run dev` (Vite, port 6020) and open `/prototype/`. ES modules don't load from `file://`.
+- Put `<!-- Figma: … (node id) -->` comments on each section so developers can find the source.
+- Done so far: Home, from the Customer Dashboard (17986:1656). It added the stat, panel, page-header, activity-item, project-summary, data-point, segmented and app-header components, a segmented progress meter, and a table footer, flush and numeric-cell styles.
+- Icons that exist in Figma but not in the Clay sprite go in `assets/icons-extra/` (exported from Figma, unedited) and are drawn with `.ws-icon-mask`, so they take a token color.

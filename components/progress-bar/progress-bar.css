@@ -49,3 +49,35 @@
 .ws-progress--warning { --progress-color: var(--color-warning); }
 
 .ws-progress--completed { --progress-color: var(--color-success); }
+
+/* ---- Segmented progress (Customer Dashboard "Discrepancies" meter, 18004:106397) ----
+   <div class="ws-progress-steps" role="meter" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" aria-label="Discrepancies resolved">
+     <span class="ws-progress-steps__step is-done"></span>…<span class="ws-progress-steps__step is-current"></span>…
+     <span class="ws-progress-steps__value">45%</span>
+   </div>
+   Figma deviation: done steps are success at 50% alpha and remaining steps a raw #D9D9D9. They use
+   --color-success-l1 and --color-gray-300 here; the current step is chart --color-blue as in Figma. */
+
+.ws-progress-steps {
+  display: inline-flex;
+  align-items: center;
+  gap: 1px;
+}
+
+.ws-progress-steps__step {
+  width: 20px;
+  height: 8px;
+  border-radius: var(--rounded-md);
+  background: var(--color-gray-300);
+}
+
+.ws-progress-steps__step.is-done { background: var(--color-success-l1); }
+.ws-progress-steps__step.is-current { background: var(--color-blue); }
+
+.ws-progress-steps__value {
+  margin-left: var(--spacing-3);
+  color: var(--text-primary);
+  font-size: var(--font-size-paragraph-x-small);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--font-line-height-body);
+}

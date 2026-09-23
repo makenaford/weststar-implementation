@@ -1,0 +1,59 @@
+/* Prototype page layout only. Everything visual comes from the design system (../css/index.css);
+   this file places components on the page. */
+
+html { height: 100%; }
+
+body {
+  min-height: 100%;
+  background: var(--color-gray-100);
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-7);
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: var(--spacing-7) var(--spacing-9);
+  padding-bottom: max(var(--spacing-7), env(safe-area-inset-bottom));
+}
+
+.page__sections {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-5);
+}
+
+/* Home: alerts (1016) and recent activity (480) side by side, 24px apart */
+.home-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1016fr) minmax(0, 480fr);
+  gap: var(--spacing-7);
+  align-items: start;
+}
+
+.home-split > .ws-panel { height: 100%; }
+
+.home-empty {
+  margin: 0;
+  padding: var(--spacing-7);
+  color: var(--color-gray-600);
+  font-size: var(--font-size-paragraph-small);
+  text-align: center;
+}
+
+.home-search { width: 340px; max-width: 100%; }
+
+@media (max-width: 1100px) {
+  .home-split { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 720px) {
+  .page { padding: var(--spacing-5) var(--spacing-5); }
+  .home-search { width: 100%; }
+  .ws-project { flex-direction: column; align-items: stretch; }
+  .ws-project__image { width: 100%; height: auto; aspect-ratio: 16 / 9; }
+  .ws-project--compact { flex-direction: row; align-items: center; }
+  .ws-project--compact .ws-project__image { width: 83px; height: 47px; aspect-ratio: auto; }
+  .ws-activity { align-items: flex-start; }
+}

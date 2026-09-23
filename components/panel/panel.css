@@ -1,0 +1,70 @@
+/* Panel — Figma: the dashboard section containers ("Tank Data", 17986:1916 / 17986:2085 / 17988:97671)
+   A white 16px-radius section with a header (title, optional count badge, actions or a "View all" link).
+   Markup:
+     <section class="ws-panel" aria-labelledby="alerts-title">
+       <header class="ws-panel__header">
+         <h2 class="ws-panel__title" id="alerts-title">Project alerts</h2>
+         <span class="ws-badge ws-badge--danger ws-badge--translucent ws-panel__count">12</span>   (optional)
+         <div class="ws-panel__actions">…search, buttons or a .ws-link…</div>                  (optional)
+       </header>
+       …content…
+     </section>
+   Figma deviation: the Financial Information panel uses a gray-300 border and 8px gap while the others use
+   gray-200 and 16px. Every panel uses gray-200 / 16px here. */
+
+.ws-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-5);
+  min-width: 0;
+  padding: var(--spacing-7);
+  border: 1px solid var(--card-outline);
+  border-radius: var(--rounded-xlg);
+  background: var(--card-background-default);
+}
+
+.ws-panel__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-2) var(--spacing-5);
+}
+
+.ws-panel__title {
+  margin: 0;
+  color: var(--color-black);
+  font-size: var(--font-size-h5);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--font-line-height-body);
+}
+
+/* Count badge sits 4px after the title (Figma: Paragraph / Small Caps / Bold, 14px) */
+.ws-panel__count {
+  margin-left: calc(var(--spacing-2) - var(--spacing-5));
+  font-size: var(--font-size-paragraph-small);
+  font-weight: var(--font-weight-bold);
+}
+
+.ws-panel__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-5);
+  margin-left: auto;
+}
+
+.ws-panel__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+/* Nested list well (Figma: gray-200 border, 8px radius, 16px padding) */
+.ws-panel__well {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: var(--spacing-5);
+  border: 1px solid var(--card-outline);
+  border-radius: var(--rounded-lg);
+}

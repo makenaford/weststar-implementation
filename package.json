@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "tokens": "node scripts/build-tokens.mjs",
     "storybook": "storybook dev -p 6010 --no-open --ci",
-    "build-storybook": "storybook build -o storybook-static"
+    "build-storybook": "storybook build -o storybook-static",
+    "dev": "vite --port 6020 --strictPort"
   },
   "repository": {
     "type": "git",

@@ -1,0 +1,60 @@
+/* Data point — Figma: the label/value "Slot" pairs on the Customer Dashboard project rows (18004:106387, 17988:97323)
+   Markup:
+     <div class="ws-data-point">
+       <dt class="ws-data-point__label">Delivery</dt>
+       <dd class="ws-data-point__value">06/12/26 <span class="ws-data-point__note ws-data-point__note--warning">+12 day shift</span></dd>
+     </div>
+   (use <div>/<span> instead of <dt>/<dd> outside a <dl>)
+   Alignment   .ws-data-point--end (right-aligned, for figures)
+   Note        .ws-data-point__note--warning | --success | --danger | --info
+   Group       .ws-data-points (row, 40px gap) | .ws-data-points--tight (20px gap) */
+
+.ws-data-point {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  margin: 0;
+}
+
+.ws-data-point__label {
+  margin: 0;
+  color: var(--color-gray-600);
+  font-size: var(--font-size-paragraph-x-small);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--font-line-height-body);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.ws-data-point__value {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 var(--spacing-3);
+  margin: 0;
+  color: var(--text-primary);
+  font-size: var(--font-size-paragraph-small);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--font-line-height-body);
+  white-space: nowrap;
+}
+
+.ws-data-point__note { font-weight: var(--font-weight-semibold); }
+.ws-data-point__note--warning { color: var(--color-warning); }
+.ws-data-point__note--success { color: var(--color-success); }
+.ws-data-point__note--danger { color: var(--color-danger); }
+.ws-data-point__note--info { color: var(--color-info); }
+
+.ws-data-point--end { align-items: flex-end; text-align: right; }
+.ws-data-point--end .ws-data-point__value { justify-content: flex-end; }
+
+.ws-data-points {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--spacing-5) var(--spacing-9);
+  margin: 0;
+}
+
+.ws-data-points--tight { gap: var(--spacing-3) var(--spacing-6); }

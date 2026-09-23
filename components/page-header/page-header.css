@@ -1,0 +1,48 @@
+/* Page header — Figma: "Banner" on the Customer Dashboard (17986:1677, main component 16201:30298)
+   Markup:
+     <header class="ws-page-header">
+       <div class="ws-page-header__text">
+         <h1 class="ws-page-header__title">Welcome back, John <span class="ws-page-header__context">(Non Stop Holdings)</span></h1>
+         <p class="ws-page-header__subtitle">Synced 2 min ago from Corridor</p>
+       </div>
+       <div class="ws-page-header__actions"><button class="ws-btn ws-btn--outline-primary ws-btn--sm">…</button></div>
+     </header>
+   Title: H3 Bold, context: H3 Semibold (Medium 500), subtitle: H6 Regular gray-600. */
+
+.ws-page-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--spacing-5) var(--spacing-12);
+}
+
+.ws-page-header__text {
+  display: flex;
+  flex: 1 1 320px;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  min-width: 0;
+}
+
+.ws-page-header__title {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--font-line-height-heading);
+}
+
+.ws-page-header__context { font-weight: var(--font-weight-medium); }
+
+.ws-page-header__subtitle {
+  margin: 0;
+  color: var(--color-gray-600);
+  font-size: var(--font-size-h6);
+  line-height: var(--font-line-height-body);
+}
+
+.ws-page-header__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+}
