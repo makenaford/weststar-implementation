@@ -1,0 +1,29 @@
+{
+  "$description": "Figma 'Typography' collection (sizes per breakpoint mode) plus the shared values behind the local text styles. Modes: mobile 0+, tablet 576+, desktop 1200+.",
+  "Font": {
+    "family": { "$type": "fontFamily", "$value": "Montserrat, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" },
+    "weight-regular": { "$type": "fontWeight", "$value": 400 },
+    "weight-medium": { "$type": "fontWeight", "$value": 500, "$description": "Figma 'Semibold' heading and display styles use Montserrat Medium" },
+    "weight-semibold": { "$type": "fontWeight", "$value": 600, "$description": "Paragraph and Action 'Semibold' styles use Montserrat SemiBold" },
+    "weight-bold": { "$type": "fontWeight", "$value": 700 },
+    "line-height-display": { "$type": "number", "$value": 1.4 },
+    "line-height-heading": { "$type": "number", "$value": 1.3 },
+    "line-height-body": { "$type": "number", "$value": 1.5 },
+    "line-height-action": { "$type": "number", "$value": 1.3 }
+  },
+  "Size": {
+    "display-large": { "$type": "dimension", "$value": { "mobile": 36, "tablet": 48, "desktop": 56 } },
+    "display-small": { "$type": "dimension", "$value": { "mobile": 32, "tablet": 40, "desktop": 48 } },
+    "h1": { "$type": "dimension", "$value": { "mobile": 28, "tablet": 34, "desktop": 40 } },
+    "h2": { "$type": "dimension", "$value": { "mobile": 26, "tablet": 28, "desktop": 32 } },
+    "h3": { "$type": "dimension", "$value": { "mobile": 24, "tablet": 24, "desktop": 28 } },
+    "h4": { "$type": "dimension", "$value": { "mobile": 20, "tablet": 22, "desktop": 24 } },
+    "h5": { "$type": "dimension", "$value": { "mobile": 18, "tablet": 18, "desktop": 18 } },
+    "h6": { "$type": "dimension", "$value": { "mobile": 14, "tablet": 14, "desktop": 14 } },
+    "paragraph-large": { "$type": "dimension", "$value": { "mobile": 18, "tablet": 18, "desktop": 18 } },
+    "paragraph-base": { "$type": "dimension", "$value": { "mobile": 16, "tablet": 16, "desktop": 16 } },
+    "paragraph-small": { "$type": "dimension", "$value": { "mobile": 14, "tablet": 14, "desktop": 14 } },
+    "paragraph-x-small": { "$type": "dimension", "$value": { "mobile": 11, "tablet": 11, "desktop": 12 } },
+    "paragraph-tiny": { "$type": "dimension", "$value": { "mobile": 9, "tablet": 9, "desktop": 9 } }
+  }
+}

@@ -1,0 +1,7 @@
+/* Storybook-only helpers (not part of the design system). */
+.sb-matrix { border-collapse: separate; border-spacing: 16px 12px; font-family: var(--font-family); }
+.sb-matrix th { font-size: 12px; font-weight: 600; color: var(--color-gray-600); text-align: left; white-space: nowrap; }
+.sb-matrix--dark { background: var(--color-primary-d1); border-radius: 8px; }
+.sb-matrix--dark th { color: var(--color-primary-l2); }
+.sb-row { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+.sb-stack { display: flex; flex-direction: column; gap: 16px; align-items: flex-start; }

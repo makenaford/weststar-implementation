@@ -1,0 +1,51 @@
+{
+  "$description": "Figma local paint styles, as aliases to foundation colors. Output as --<group>-<name>, e.g. --action-primary-hover, --table-stripe.",
+  "Text": {
+    "primary": { "$type": "color", "$value": "{Color.Grays.gray-900}" },
+    "secondary": { "$type": "color", "$value": "{Color.Grays.gray-900}" },
+    "placeholder": { "$type": "color", "$value": "{Color.Grays.gray-600}" },
+    "body": { "$type": "color", "$value": "{Color.Grays.gray-900}" },
+    "background": { "$type": "color", "$value": "{Color.Grays.white}" }
+  },
+  "Action": {
+    "primary-default": { "$type": "color", "$value": "{Color.Primary.primary}" },
+    "primary-hover": { "$type": "color", "$value": "{Color.Primary.primary-d1}" },
+    "primary-hover-lighten": { "$type": "color", "$value": "{Color.Primary.primary-l3}" },
+    "primary-focus": { "$type": "color", "$value": "{Color.Primary.primary-d1}" },
+    "primary-focus-lighten": { "$type": "color", "$value": "{Color.Primary.primary-l3}" },
+    "primary-active": { "$type": "color", "$value": "{Color.Primary.primary-d2}" },
+    "primary-active-lighten": { "$type": "color", "$value": "{Color.Primary.primary-l2}" },
+    "primary-disabled": { "$type": "color", "$value": "{Color.Primary.primary}" },
+    "primary-inverted": { "$type": "color", "$value": "{Color.Grays.white}" },
+    "primary-inverted-hover": { "$type": "color", "$value": "{Color.Primary.primary-l3}" },
+    "primary-inverted-active": { "$type": "color", "$value": "{Color.Primary.primary-l3}" }
+  },
+  "Table": {
+    "divider": { "$type": "color", "$value": "{Color.Grays.gray-200}" },
+    "active-row": { "$type": "color", "$value": "{Color.Primary.primary-l3}" },
+    "stripe": { "$type": "color", "$value": "{Color.Grays.gray-100}" },
+    "default-bg": { "$type": "color", "$value": "{Color.Grays.white}" },
+    "outline": { "$type": "color", "$value": "{Color.Grays.gray-300}" }
+  },
+  "Card": {
+    "outline": { "$type": "color", "$value": "{Color.Grays.gray-200}" },
+    "background-default": { "$type": "color", "$value": "{Color.Grays.white}" }
+  },
+  "Translucent": {
+    "primary-light": { "$type": "color", "$value": "{Color.Primary.primary-d1 4%}" },
+    "primary-dark": { "$type": "color", "$value": "{Color.Primary.primary-l2 4%}" },
+    "success-light": { "$type": "color", "$value": "{Color.Success.success-d1 4%}" },
+    "success-dark": { "$type": "color", "$value": "{Color.Success.success-l2 4%}" },
+    "info-light": { "$type": "color", "$value": "{Color.Info.info-d1 4%}" },
+    "info-dark": { "$type": "color", "$value": "{Color.Info.info-l2 4%}" },
+    "warning-light": { "$type": "color", "$value": "{Color.Warning.warning-d1 4%}" },
+    "warning-dark": { "$type": "color", "$value": "{Color.Warning.warning-l2 4%}" },
+    "danger-light": { "$type": "color", "$value": "{Color.Danger.danger-d1 4%}" },
+    "danger-dark": { "$type": "color", "$value": "{Color.Danger.danger-l2 4%}" }
+  },
+  "Utility": {
+    "component-bg": { "$type": "color", "$value": "{Color.Utility.Component BG Light}" },
+    "component-bg-dark": { "$type": "color", "$value": "{Color.Utility.Component BG Dark}" },
+    "sample-outline": { "$type": "color", "$value": "{Color.Grays.gray-300}" }
+  }
+}

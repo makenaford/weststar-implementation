@@ -1,0 +1,14 @@
+{
+  "$description": "Figma local effect styles (Shadow/*). All shadows use gray-900 (#212529) at the given alpha.",
+  "Shadow": {
+    "alert": { "$type": "shadow", "$value": { "offsetX": 0, "offsetY": 8, "blur": 16, "spread": 0, "color": "#212529", "alpha": 0.08 } },
+    "card-default": { "$type": "shadow", "$value": { "offsetX": 0, "offsetY": 2, "blur": 4, "spread": 0, "color": "#212529", "alpha": 0.08 } },
+    "card-hover": { "$type": "shadow", "$value": { "offsetX": 0, "offsetY": 2, "blur": 12, "spread": 0, "color": "#212529", "alpha": 0.12 } },
+    "card-drag": { "$type": "shadow", "$value": { "offsetX": 0, "offsetY": 2, "blur": 16, "spread": 0, "color": "#212529", "alpha": 0.16 } },
+    "dropdown": { "$type": "shadow", "$value": { "offsetX": 0, "offsetY": 4, "blur": 8, "spread": 0, "color": "#212529", "alpha": 0.12 } },
+    "modal": { "$type": "shadow", "$value": { "offsetX": 0, "offsetY": 4, "blur": 16, "spread": 0, "color": "#212529", "alpha": 0.2 } },
+    "popover": { "$type": "shadow", "$value": { "offsetX": 0, "offsetY": 4, "blur": 16, "spread": 0, "color": "#212529", "alpha": 0.08 } },
+    "slider": { "$type": "shadow", "$value": { "offsetX": 0, "offsetY": 1, "blur": 4, "spread": 0, "color": "#212529", "alpha": 0.2 } },
+    "tooltip": { "$type": "shadow", "$value": { "offsetX": 0, "offsetY": 2, "blur": 4, "spread": 0, "color": "#212529", "alpha": 0.2 } }
+  }
+}

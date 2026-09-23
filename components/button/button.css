@@ -1,0 +1,203 @@
+/* Button — Figma: 💠 Clay Components / Button (145:26649)
+   Props → classes
+     Color × Type   .ws-btn--primary (Solid) | --outline-primary | --outline-secondary
+                    --borderless-primary | --borderless-secondary | --link
+     Size           --lg | (Default) | --sm | --xs
+     Rounded        --rounded
+     Icon Only      --icon
+     Inverted       --inverted (for dark backgrounds)
+     State          :hover :focus-visible :active :disabled, or .is-hover .is-focus .is-active .is-disabled for static display */
+
+.ws-btn {
+  --btn-bg: transparent;
+  --btn-border: transparent;
+  --btn-color: var(--color-primary);
+  --btn-bg-hover: var(--btn-bg);
+  --btn-border-hover: var(--btn-border);
+  --btn-color-hover: var(--btn-color);
+  --btn-bg-active: var(--btn-bg-hover);
+  --btn-border-active: var(--btn-border-hover);
+  --btn-color-active: var(--btn-color-hover);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-3);
+  height: 48px;
+  padding: var(--spacing-4) var(--spacing-5);
+  border: 1px solid var(--btn-border);
+  border-radius: var(--rounded-lg);
+  background: var(--btn-bg);
+  color: var(--btn-color);
+  font-family: inherit;
+  font-size: var(--font-size-paragraph-base);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--font-line-height-body);
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color var(--ws-transition), border-color var(--ws-transition), color var(--ws-transition), box-shadow var(--ws-transition);
+}
+
+.ws-btn .ws-icon { width: 16px; height: 16px; }
+
+.ws-btn:hover,
+.ws-btn.is-hover {
+  background: var(--btn-bg-hover);
+  border-color: var(--btn-border-hover);
+  color: var(--btn-color-hover);
+}
+
+.ws-btn:focus-visible,
+.ws-btn.is-focus {
+  outline: none;
+  background: var(--btn-bg-hover);
+  border-color: var(--btn-border-hover);
+  color: var(--btn-color-focus, var(--btn-color-hover));
+  box-shadow: var(--ws-focus-ring);
+}
+
+.ws-btn:active,
+.ws-btn.is-active {
+  background: var(--btn-bg-active);
+  border-color: var(--btn-border-active);
+  color: var(--btn-color-active);
+}
+
+.ws-btn:disabled,
+.ws-btn.is-disabled,
+.ws-btn[aria-disabled='true'] {
+  background: var(--btn-bg);
+  border-color: var(--btn-border);
+  color: var(--btn-color);
+  box-shadow: none;
+  opacity: var(--translucent-1);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ---- Color × Type ---- */
+
+.ws-btn--primary {
+  --btn-bg: var(--action-primary-default);
+  --btn-color: var(--color-white);
+  --btn-bg-hover: var(--action-primary-hover);
+  --btn-bg-active: var(--action-primary-active);
+}
+
+.ws-btn--outline-primary {
+  --btn-border: var(--color-primary);
+  --btn-color: var(--color-primary);
+  --btn-bg-hover: var(--color-primary-l3);
+  --btn-border-hover: var(--color-primary-d1);
+  --btn-color-hover: var(--color-primary-d1);
+  --btn-bg-active: var(--color-primary-l2);
+  --btn-border-active: var(--color-primary-d2);
+  --btn-color-active: var(--color-primary-d2);
+}
+
+.ws-btn--outline-secondary {
+  --btn-border: var(--color-gray-600);
+  --btn-color: var(--color-gray-800);
+  --btn-bg-hover: var(--color-gray-200);
+  --btn-border-hover: var(--color-gray-600);
+  --btn-color-hover: var(--color-gray-900);
+  --btn-bg-active: var(--color-gray-300);
+}
+
+.ws-btn--borderless-primary {
+  --btn-color: var(--color-primary);
+  --btn-bg-hover: var(--color-primary-l3);
+  --btn-color-hover: var(--color-primary-d1);
+  --btn-color-focus: var(--color-primary-d2);
+  --btn-bg-active: var(--color-primary-l2);
+  --btn-color-active: var(--color-primary-d2);
+}
+
+.ws-btn--borderless-secondary {
+  --btn-color: var(--color-gray-800);
+  --btn-bg-hover: var(--color-gray-200);
+  --btn-color-hover: var(--color-gray-900);
+  --btn-bg-active: var(--color-gray-300);
+}
+
+.ws-btn--link {
+  --btn-color: var(--color-primary);
+  --btn-color-hover: var(--color-primary-d1);
+  --btn-color-active: var(--color-primary-d2);
+  font-weight: var(--font-weight-regular);
+}
+
+.ws-btn--link:hover,
+.ws-btn--link.is-hover {
+  text-decoration: underline;
+}
+
+/* ---- Inverted (on dark surfaces such as the nav bar) ----
+   Figma deviations, see README "Figma issues": inverted Solid has black text on navy in Figma,
+   and inverted hover/active use an untokenised teal (#00648A/#004B68). Here Solid uses the
+   Action/Primary/Inverted paint styles and the translucent fills use white at token opacities. */
+
+.ws-btn--inverted.ws-btn--primary {
+  --btn-bg: var(--action-primary-inverted);
+  --btn-color: var(--color-primary);
+  --btn-bg-hover: var(--action-primary-inverted-hover);
+  --btn-bg-active: var(--color-primary-l2);
+}
+
+.ws-btn--inverted:is(.ws-btn--outline-primary, .ws-btn--outline-secondary) {
+  --btn-border: var(--color-gray-600);
+  --btn-border-hover: var(--color-gray-600);
+  --btn-border-active: var(--color-gray-600);
+}
+
+.ws-btn--inverted:is(.ws-btn--outline-primary, .ws-btn--outline-secondary, .ws-btn--borderless-primary, .ws-btn--borderless-secondary) {
+  --btn-color: var(--color-white);
+  --btn-color-hover: var(--color-white);
+  --btn-color-focus: var(--color-white);
+  --btn-bg-hover: var(--color-primary-l2-4);
+  --btn-bg-active: var(--color-gray-900-40);
+}
+
+.ws-btn--inverted.ws-btn--borderless-primary {
+  --btn-color-active: var(--color-gray-400);
+}
+
+.ws-btn--inverted.ws-btn--link {
+  --btn-color: var(--color-white);
+  --btn-color-hover: var(--color-white);
+  --btn-color-active: var(--color-gray-400);
+}
+
+/* ---- Sizes ---- */
+
+.ws-btn--lg {
+  height: 56px;
+  padding: 14px 18px;
+  font-size: var(--font-size-paragraph-large);
+}
+
+.ws-btn--sm {
+  height: 40px;
+  padding: 9.5px var(--spacing-4);
+  border-radius: var(--rounded-md);
+  font-size: var(--font-size-paragraph-small);
+}
+
+.ws-btn--xs {
+  height: 32px;
+  padding: 7px var(--spacing-3);
+  border-radius: var(--rounded-md);
+  font-size: var(--font-size-paragraph-x-small);
+}
+
+.ws-btn--xs .ws-icon { width: 12px; height: 12px; }
+
+.ws-btn--rounded { border-radius: var(--rounded-full); }
+
+/* ---- Icon only: square, same heights ---- */
+
+.ws-btn--icon { width: 48px; padding: 0; }
+.ws-btn--icon.ws-btn--lg { width: 56px; }
+.ws-btn--icon.ws-btn--sm { width: 40px; }
+.ws-btn--icon.ws-btn--xs { width: 32px; }

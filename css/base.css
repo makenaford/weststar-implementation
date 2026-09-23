@@ -1,0 +1,102 @@
+/* Base styles: reset, type ramp (Figma local text styles), icons, focus ring. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  /* Figma "Focus Ring" component: 2px Focus - Inner inside, 2px Focus - Outer outside, 2px off the element. */
+  --ws-focus-ring: 0 0 0 2px var(--color-focus-inner), 0 0 0 4px var(--color-focus-outer);
+  --ws-transition: 150ms ease-in-out;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  font-size: var(--font-size-paragraph-base);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--font-line-height-body);
+  color: var(--text-body);
+  background: var(--text-background);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---- Type ramp -------------------------------------------------------------
+   One class per Figma text style: .ws-text-<style>[-<weight>]
+   Figma "Semibold" display/heading styles are Montserrat Medium (500);
+   paragraph and action "Semibold" styles are Montserrat SemiBold (600). */
+
+.ws-text-display-lg,
+.ws-text-display-sm,
+.ws-text-h1,
+.ws-text-h2,
+.ws-text-h3,
+.ws-text-h4 {
+  margin: 0;
+  font-weight: var(--font-weight-regular);
+}
+
+.ws-text-display-lg { font-size: var(--font-size-display-large); line-height: var(--font-line-height-display); }
+.ws-text-display-sm { font-size: var(--font-size-display-small); line-height: var(--font-line-height-display); }
+.ws-text-h1 { font-size: var(--font-size-h1); line-height: var(--font-line-height-heading); }
+.ws-text-h2 { font-size: var(--font-size-h2); line-height: var(--font-line-height-heading); }
+.ws-text-h3 { font-size: var(--font-size-h3); line-height: var(--font-line-height-heading); }
+.ws-text-h4 { font-size: var(--font-size-h4); line-height: var(--font-line-height-heading); }
+.ws-text-h5 { margin: 0; font-size: var(--font-size-h5); line-height: var(--font-line-height-body); font-weight: var(--font-weight-regular); }
+.ws-text-h6 { margin: 0; font-size: var(--font-size-h6); line-height: var(--font-line-height-body); font-weight: var(--font-weight-regular); }
+
+.ws-text-display-lg.is-semibold, .ws-text-display-sm.is-semibold,
+.ws-text-h1.is-semibold, .ws-text-h2.is-semibold, .ws-text-h3.is-semibold,
+.ws-text-h4.is-semibold, .ws-text-h5.is-semibold, .ws-text-h6.is-semibold {
+  font-weight: var(--font-weight-medium);
+}
+
+.ws-text-lg { font-size: var(--font-size-paragraph-large); line-height: var(--font-line-height-body); }
+.ws-text-base { font-size: var(--font-size-paragraph-base); line-height: var(--font-line-height-body); }
+.ws-text-sm { font-size: var(--font-size-paragraph-small); line-height: var(--font-line-height-body); }
+.ws-text-xs { font-size: var(--font-size-paragraph-x-small); line-height: var(--font-line-height-body); }
+.ws-text-caps { font-size: var(--font-size-paragraph-small); line-height: var(--font-line-height-body); text-transform: uppercase; }
+.ws-text-caps-xs { font-size: var(--font-size-paragraph-x-small); line-height: var(--font-line-height-body); text-transform: uppercase; }
+
+.ws-text-lg.is-semibold, .ws-text-base.is-semibold, .ws-text-sm.is-semibold, .ws-text-xs.is-semibold,
+.ws-text-caps.is-semibold, .ws-text-caps-xs.is-semibold {
+  font-weight: var(--font-weight-semibold);
+}
+
+[class^='ws-text-'].is-bold, [class*=' ws-text-'].is-bold { font-weight: var(--font-weight-bold); }
+[class^='ws-text-'].is-underline, [class*=' ws-text-'].is-underline { text-decoration: underline; }
+
+.ws-text-action-lg { font-size: var(--font-size-paragraph-large); line-height: var(--font-line-height-action); font-weight: var(--font-weight-semibold); }
+.ws-text-action { font-size: var(--font-size-paragraph-base); line-height: var(--font-line-height-action); font-weight: var(--font-weight-semibold); }
+.ws-text-action-sm { font-size: var(--font-size-paragraph-small); line-height: var(--font-line-height-action); font-weight: var(--font-weight-semibold); }
+
+/* ---- Icons -----------------------------------------------------------------
+   Clay/Lexicon icon sprite (same names as the Figma Icons page):
+   <svg class="ws-icon" aria-hidden="true"><use href="icons.svg#check"></use></svg> */
+
+.ws-icon {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+  vertical-align: middle;
+}
+
+.ws-icon--sm { width: 12px; height: 12px; }
+.ws-icon--md { width: 16px; height: 16px; }
+.ws-icon--lg { width: 24px; height: 24px; }
+
+.ws-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
