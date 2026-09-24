@@ -8,7 +8,8 @@
     "tokens": "node scripts/build-tokens.mjs",
     "storybook": "storybook dev -p 6010 --no-open --ci",
     "build-storybook": "storybook build -o storybook-static",
-    "dev": "vite --port 6020 --strictPort"
+    "dev": "vite --port 6020 --strictPort",
+    "build-site": "node scripts/build-site.mjs"
   },
   "repository": {
     "type": "git",

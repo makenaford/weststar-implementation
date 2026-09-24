@@ -83,6 +83,7 @@ Build the portal pages and screens from these components. Use the existing proto
 - `prototype/prototype.css`: page layout only (grids, gaps, breakpoints). If a style is visual rather than about placement, it belongs in a component.
 - `prototype/<page>.js`: an ES module holding the page's mock data, the templates for repeated rows, and wiring for component JS (`initSegmented`, `initDropdown` and so on).
 - Run `npm run dev` (Vite, port 6020) and open `/prototype/`. ES modules don't load from `file://`.
+- Publishing: `npm run build-site` builds Storybook and copies `css/`, `components/`, `assets/` and `prototype/` into `storybook-static/`. GitHub Actions deploys it to https://makenaford.github.io/weststar-implementation/ (with the prototype at `/prototype/`) on every push to `main`. Keep every prototype path relative (`../css`, `../assets`), because the site is served from a subpath.
 - Put `<!-- Figma: … (node id) -->` comments on each section so developers can find the source.
 - Done so far: Home, from the Customer Dashboard (17986:1656). It added the stat, panel, page-header, activity-item, project-summary, data-point, segmented and app-header components, a segmented progress meter, and a table footer, flush and numeric-cell styles.
 - Icons that exist in Figma but not in the Clay sprite go in `assets/icons-extra/` (exported from Figma, unedited) and are drawn with `.ws-icon-mask`, so they take a token color.

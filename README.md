@@ -1,5 +1,7 @@
 # West Star Aviation design system
 
+**Live:** [Storybook](https://makenaford.github.io/weststar-implementation/) · [Portal prototype](https://makenaford.github.io/weststar-implementation/prototype/). Both redeploy on every push to `main`.
+
 The tokens and components for the West Star Aviation customer portal. They're built in plain HTML, CSS and vanilla JS from the Figma file [gs-weststar-implementation](https://www.figma.com/design/elT7RbG4bvfjAkS8SRtk6f/gs-weststar-implementation), which uses Liferay Clay components. Storybook documents every component and variant for developer handoff.
 
 ## Run it
@@ -9,6 +11,7 @@ npm install
 npm run storybook        # http://localhost:6010
 npm run tokens           # rebuild css/tokens.css after editing tokens/*.json
 npm run build-storybook  # static build in storybook-static/
+npm run build-site       # Storybook + prototype, as published to GitHub Pages
 npm run dev              # portal prototype at http://localhost:6020/prototype/
 ```
 
