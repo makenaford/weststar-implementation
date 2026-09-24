@@ -1,5 +1,4 @@
 import foundations from '../tokens/foundations.json';
-import original from '../tokens/foundations.figma-original.json';
 import typography from '../tokens/typography.json';
 import effects from '../tokens/effects.json';
 import semantic from '../tokens/semantic.json';
@@ -24,7 +23,6 @@ const style = `
   .fd-meta { padding: 8px 10px; font-size: 11px; line-height: 1.5; }
   .fd-meta b { display: block; font-size: 12px; font-weight: 600; }
   .fd-meta code { font-size: 11px; color: var(--color-gray-700); }
-  .fd-meta s { color: var(--color-gray-500); }
   .fd-table { border-collapse: collapse; font-size: 13px; width: 100%; max-width: 960px; }
   .fd-table th, .fd-table td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--color-gray-200); vertical-align: middle; }
   .fd-table th { font-size: 12px; font-weight: 600; color: var(--color-gray-600); }
@@ -35,23 +33,19 @@ const style = `
   .fd-search { font: inherit; font-size: 14px; padding: 8px 12px; border: 1px solid var(--color-gray-400); border-radius: var(--rounded-md); width: 280px; margin-bottom: 16px; }
 </style>`;
 
-function swatch(name, token, origToken) {
+function swatch(name, token) {
   const cssVar = `--color-${slug(name)}`;
   const hex = hexOf(token);
   const a = alphaOf(token);
-  const was = hexOf(origToken);
-  const origRef = origToken?.$value;
-  const wasLabel = typeof origRef === 'string' ? origRef.replace(/[{}]/g, '').split('.').pop() : was;
-  const changed = wasLabel && wasLabel !== hex;
   return `<div class="fd-swatch">
     <div class="fd-chip"><span style="background: var(${cssVar})"></span></div>
-    <div class="fd-meta"><b>${name}</b><code>${cssVar}</code><br>${hex}${a < 1 ? ` · ${a * 100}%` : ''}${changed ? `<br><s>Figma: ${wasLabel}</s>` : ''}</div>
+    <div class="fd-meta"><b>${name}</b><code>${cssVar}</code><br>${hex}${a < 1 ? ` · ${a * 100}%` : ''}</div>
   </div>`;
 }
 
 function colorGroup(group, tokens) {
   const entries = Object.entries(tokens).filter(([, t]) => isToken(t) && t.$type === 'color');
-  return `<div class="fd-grid">${entries.map(([n, t]) => swatch(n, t, original.Color?.[group]?.[n])).join('')}</div>`;
+  return `<div class="fd-grid">${entries.map(([n, t]) => swatch(n, t)).join('')}</div>`;
 }
 
 export default {
@@ -64,7 +58,7 @@ export const Colors = {
     const c = foundations.Color;
     const groups = ['Primary', 'Grays', 'Success', 'Info', 'Warning', 'Danger', 'Utility'];
     return `${style}<div class="fd">
-      <p class="note">Values come from <code>tokens/foundations.json</code>, with the Figma variable names and the updated palette. A struck-through "Figma" value means the Figma file still holds the original value and needs updating.</p>
+      <p class="note">Values come from <code>tokens/foundations.json</code>, with the Figma variable names and the updated palette. <code>docs/figma-variable-updates.md</code> lists the Figma variables that still hold the original values.</p>
       ${groups.map((g) => `<h2>${g}</h2>${colorGroup(g, c[g])}`).join('')}
     </div>`;
   },
@@ -77,7 +71,7 @@ export const ChartColors = {
     const order = ['Blue', 'Orange', 'Teal', 'Pink', 'Yellow', 'Indigo', 'Green', 'Red', 'Cyan', 'Purple'];
     return `${style}<div class="fd">
       <p class="note">Ten families, each with nine steps (d4 to l4). For categorical series, use the family bases in this order: ${order.join(', ').toLowerCase()}. For sequential data, use one family from light to dark.</p>
-      ${order.map((f) => `<h2>${f}</h2><div class="fd-grid" style="grid-template-columns: repeat(9, minmax(90px, 1fr))">${Object.entries(charts[f]).filter(([, t]) => isToken(t)).map(([n, t]) => swatch(n, t, original.Color.Charts?.[f]?.[n])).join('')}</div>`).join('')}
+      ${order.map((f) => `<h2>${f}</h2><div class="fd-grid" style="grid-template-columns: repeat(9, minmax(90px, 1fr))">${Object.entries(charts[f]).filter(([, t]) => isToken(t)).map(([n, t]) => swatch(n, t)).join('')}</div>`).join('')}
     </div>`;
   },
 };

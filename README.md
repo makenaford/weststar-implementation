@@ -58,7 +58,7 @@ Run `npm run dev` and open http://localhost:6020/prototype/. The page needs a se
 
 ## Colors differ from Figma
 
-This system uses the **updated** palette worked out for the portal: primary is a real tint/shade scale of #1E293B, the status ramps are muted, and the chart ramps are rebalanced. The Figma variables still hold the original values. [docs/figma-variable-updates.md](docs/figma-variable-updates.md) lists the 128 variables to change so Figma matches, and the Storybook Foundations → Colors page shows the old value under each changed token.
+This system uses the **updated** palette worked out for the portal: primary is a real tint/shade scale of #1E293B, the status ramps are muted, and the chart ramps are rebalanced. The Figma variables still hold the original values. [docs/figma-variable-updates.md](docs/figma-variable-updates.md) lists the variables to change so Figma matches.
 
 ## Figma issues
 
