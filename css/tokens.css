@@ -205,7 +205,6 @@
   --shadow-slider: 0px 1px 4px 0px rgba(33, 37, 41, 0.2);
   --shadow-tooltip: 0px 2px 4px 0px rgba(33, 37, 41, 0.2);
   --text-primary: var(--color-gray-900);
-  --text-secondary: var(--color-gray-900);
   --text-placeholder: var(--color-gray-600);
   --text-body: var(--color-gray-900);
   --text-background: var(--color-white);

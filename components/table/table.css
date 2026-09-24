@@ -250,7 +250,7 @@
   height: 36px;
   border-bottom: 0;
   border-top: 1px solid var(--table-outline);
-  color: var(--text-secondary);
+  color: var(--text-primary);
 }
 
 /* ---- Flush: no outer border or radius, for a table inside a card or panel ---- */

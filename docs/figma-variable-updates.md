@@ -132,4 +132,4 @@ The Figma file still holds the original palette, and these 128 color variables d
 | Color/Charts/Indigo/indigo-l2 | #99A3FF | #9AA1D9 |
 | Color/Charts/Indigo/indigo-l3 | #B2BAFF | #B9C0EA |
 | Color/Charts/Indigo/indigo-l4 | #CCD1FF | #DDE1F9 |
-Also: delete the **Color/Secondary** group (secondary-d2, -d1, secondary, -l0, -l1, -l2, -l3). It was removed from the design system on 2026-09-24 because nothing used it. And delete the duplicates `Color/Info/info-d1-4% 2` and `Color/Info/info-l2-4% 2`. And confirm whether `primary-l2 4%` should follow l2 (as it does now) or l1 (what it originally aliased: gray-600).
+Also: delete the **Color/Secondary** group (secondary-d2, -d1, secondary, -l0, -l1, -l2, -l3). It was removed from the design system on 2026-09-24 because nothing used it. Delete the **Text/Secondary** paint style too, since it's identical to Text/Primary. And delete the duplicates `Color/Info/info-d1-4% 2` and `Color/Info/info-l2-4% 2`. And confirm whether `primary-l2 4%` should follow l2 (as it does now) or l1 (what it originally aliased: gray-600).

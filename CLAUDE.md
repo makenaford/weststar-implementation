@@ -41,7 +41,7 @@ assets/         icons.svg, plus any images components need
 | Font weights / line heights | `--font-weight-*`, `--font-line-height-*` | `--font-weight-semibold` (600) |
 | Paint styles | `--<group>-<name>` | `--action-primary-hover`, `--table-stripe`, `--card-outline`, `--text-placeholder` |
 
-These names match the portal prototype's `--color-*` variables exactly: all 154 were checked. The Secondary family (`--color-secondary*`, 7 tokens) was later removed (2026-09-24) because nothing used it. Don't reintroduce it; use the grays for neutral UI.
+These names match the portal prototype's `--color-*` variables exactly: all 154 were checked. The Secondary family (`--color-secondary*`, 7 tokens) was later removed (2026-09-24) because nothing used it, and so was the `--text-secondary` alias, which duplicated `--text-primary`. Don't reintroduce it; use the grays for neutral UI.
 
 ## Component conventions (follow `components/button/` as the reference)
 
