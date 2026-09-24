@@ -56,9 +56,9 @@ Each component has its own folder in `components/`, with a CSS file, stories, an
 
 Run `npm run dev` and open http://localhost:6020/prototype/. The page needs a server because it loads component JS as ES modules.
 
-## Colors differ from Figma
+## Colors
 
-This system uses the **updated** palette worked out for the portal: primary is a real tint/shade scale of #1E293B, the status ramps are muted, and the chart ramps are rebalanced. The Figma variables still hold the original values. [docs/figma-variable-updates.md](docs/figma-variable-updates.md) lists the variables to change so Figma matches.
+The system uses the palette worked out for the portal: primary is a real tint/shade scale of #1E293B, the status ramps are muted, and the chart ramps are rebalanced. The Figma variables were updated to match on 2026-09-24 ([record of changes](docs/figma-variable-updates.md)), so Figma and code use the same values.
 
 ## Figma issues
 

@@ -5,7 +5,7 @@ The design system for the West Star Aviation (WSA) customer portal: tokens, plai
 ## Sources of truth
 
 - **Figma:** file `elT7RbG4bvfjAkS8SRtk6f` ("gs-weststar-implementation"). The components are on the page **💠 Clay Components** (`1:33`), and the icons on **Icons** (`5902:2011`). The components are built on Liferay Clay/Lexicon.
-- **Color:** `tokens/foundations.json`. It has the Figma variable names and IDs, but carries the **updated** palette from the portal prototype work (a true primary tint/shade scale, muted status ramps, and re-balanced chart ramps). Figma itself still has the original values, which are kept in `tokens/foundations.figma-original.json`. When Figma and `foundations.json` disagree on a color, `foundations.json` wins.
+- **Color:** `tokens/foundations.json`. It has the Figma variable names and IDs, but carries the **updated** palette from the portal prototype work (a true primary tint/shade scale, muted status ramps, and re-balanced chart ramps). The Figma variables were synced to these values on 2026-09-24, so Figma and code now match. The pre-sync export is kept in `tokens/foundations.figma-original.json`. If they ever drift apart again, `foundations.json` wins.
 - **Everything else** (spacing, radius, type, shadows, component specs) comes from Figma.
 
 ## Stack
@@ -65,7 +65,7 @@ These names match the portal prototype's `--color-*` variables exactly: all 154 
 - Before any Figma MCP call, load the skills: `figma:figma-use` before `use_figma`, and `figma:figma-design-to-code` before `get_design_context`.
 - The fastest way to get exact specs is `scripts/figma-spec.js` pasted into `use_figma`. Set `SET_ID` and `FILTER`. It returns fills, strokes, radius, auto-layout padding and gap, effects and text styles, with variable names (`$primary-d1`) instead of hex. Keep `MAX_VARIANTS` low; some sets have hundreds of variants.
 - Use `get_screenshot` on a component set to see the visual target.
-- Where a Figma color resolves to an original (pre-update) value, use the token by name. The name is what matters, because `foundations.json` holds the updated value.
+- Map Figma colors to tokens by variable name (`$primary-d1` → `var(--color-primary-d1)`).
 - If Figma has an obvious mistake (an untokenized hex, unreadable contrast), don't copy it. Use the nearest correct token, note it in the CSS comment, and add it to the "Figma issues" list in README.md.
 
 ## Verify

@@ -58,7 +58,7 @@ export const Colors = {
     const c = foundations.Color;
     const groups = ['Primary', 'Grays', 'Success', 'Info', 'Warning', 'Danger', 'Utility'];
     return `${style}<div class="fd">
-      <p class="note">Values come from <code>tokens/foundations.json</code>, with the Figma variable names and the updated palette. <code>docs/figma-variable-updates.md</code> lists the Figma variables that still hold the original values.</p>
+      <p class="note">Values come from <code>tokens/foundations.json</code>, with the Figma variable names and the updated palette. The Figma variables match these values.</p>
       ${groups.map((g) => `<h2>${g}</h2>${colorGroup(g, c[g])}`).join('')}
     </div>`;
   },
