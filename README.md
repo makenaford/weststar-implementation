@@ -30,7 +30,7 @@ Copy `assets/icons.svg` (and `assets/illustrations/` if you use empty states) ne
 
 ## What's in it
 
-**Foundations:** color (154 tokens), chart color (10 families), semantic color (Figma paint styles), type ramp (responsive: mobile, tablet, desktop), spacing, radius, shadows and 300+ Clay icons.
+**Foundations:** color (147 tokens; the Secondary family was removed), chart color (10 families), semantic color (Figma paint styles), type ramp (responsive: mobile, tablet, desktop), spacing, radius, shadows and 300+ Clay icons.
 
 **Components (32):**
 

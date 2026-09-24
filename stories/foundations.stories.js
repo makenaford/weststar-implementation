@@ -62,7 +62,7 @@ export default {
 export const Colors = {
   render: () => {
     const c = foundations.Color;
-    const groups = ['Primary', 'Secondary', 'Grays', 'Success', 'Info', 'Warning', 'Danger', 'Utility'];
+    const groups = ['Primary', 'Grays', 'Success', 'Info', 'Warning', 'Danger', 'Utility'];
     return `${style}<div class="fd">
       <p class="note">Values come from <code>tokens/foundations.json</code>, with the Figma variable names and the updated palette. A struck-through "Figma" value means the Figma file still holds the original value and needs updating.</p>
       ${groups.map((g) => `<h2>${g}</h2>${colorGroup(g, c[g])}`).join('')}
